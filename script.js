@@ -629,7 +629,7 @@ let brainRestTimer = null;
 function showBrainRest(onDone) {
   const screen = $("screen-brain-rest");
   screen.classList.add("active");
-  playMeow();
+  playMeowChorus();
 
   const finish = () => {
     clearTimeout(brainRestTimer);
@@ -642,7 +642,15 @@ function showBrainRest(onDone) {
   $("btn-skip-rest").onclick = finish;
 }
 
-// Synthesizes a cute "meow" with the Web Audio API (pitch rises then falls,
+// Two distinct meow "voices" -- a brighter/higher cat and a deeper/mellower
+// one -- so a back-and-forth chorus sounds like two different cats calling
+// out, not one cat repeating itself.
+const MEOW_VOICES = {
+  bright: { start: 560, peak: 820, end: 360, peakAt: 0.22, filterHz: 2400, gain: 0.55, sustainGain: 0.42 },
+  deep: { start: 360, peak: 540, end: 230, peakAt: 0.28, filterHz: 1500, gain: 0.5, sustainGain: 0.38 }
+};
+
+// Synthesizes one ~1s "meow" with the Web Audio API (pitch rises then falls,
 // like a real meow's contour) -- no external audio file needed.
 let meowAudioCtx = null;
 
@@ -657,7 +665,8 @@ function unlockMeowAudio() {
 document.addEventListener("pointerdown", unlockMeowAudio, { once: true });
 document.addEventListener("keydown", unlockMeowAudio, { once: true });
 
-function playMeow() {
+function playMeow(voice) {
+  const v = MEOW_VOICES[voice] || MEOW_VOICES.bright;
   try {
     unlockMeowAudio();
     const ctx = meowAudioCtx;
@@ -668,27 +677,35 @@ function playMeow() {
     const gain = ctx.createGain();
     osc.type = "sawtooth";
     filter.type = "lowpass";
-    filter.frequency.value = 2200;
+    filter.frequency.value = v.filterHz;
     osc.connect(filter);
     filter.connect(gain);
     gain.connect(ctx.destination);
 
-    // Pitch contour: starts mid, rises ("me-"), then falls ("-ow").
-    osc.frequency.setValueAtTime(520, now);
-    osc.frequency.linearRampToValueAtTime(760, now + 0.12);
-    osc.frequency.linearRampToValueAtTime(340, now + 0.45);
+    // Pitch contour: starts mid, rises ("me-"), then falls ("-ow") over ~1s.
+    osc.frequency.setValueAtTime(v.start, now);
+    osc.frequency.linearRampToValueAtTime(v.peak, now + v.peakAt);
+    osc.frequency.linearRampToValueAtTime(v.end, now + 0.95);
 
     // Loud enough to actually be heard over typical phone speaker volume.
     gain.gain.setValueAtTime(0, now);
-    gain.gain.linearRampToValueAtTime(0.55, now + 0.06);
-    gain.gain.linearRampToValueAtTime(0.4, now + 0.28);
-    gain.gain.linearRampToValueAtTime(0, now + 0.52);
+    gain.gain.linearRampToValueAtTime(v.gain, now + 0.08);
+    gain.gain.linearRampToValueAtTime(v.sustainGain, now + 0.55);
+    gain.gain.linearRampToValueAtTime(0, now + 1.0);
 
     osc.start(now);
-    osc.stop(now + 0.55);
+    osc.stop(now + 1.05);
   } catch (e) {
     // Web Audio unsupported or blocked -- silently skip, the visual cats are enough.
   }
+}
+
+// Plays 3 meows with uneven gaps and alternating voices, like two cats
+// calling back and forth ("sautan") instead of one cat repeating on a timer.
+function playMeowChorus() {
+  setTimeout(() => playMeow("bright"), 0);
+  setTimeout(() => playMeow("deep"), 950);
+  setTimeout(() => playMeow("bright"), 2500);
 }
 
 /* =================================================================

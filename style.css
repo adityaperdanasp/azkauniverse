@@ -516,7 +516,9 @@ button, input {
 
 .match-correct-reveal {
   flex: 0 0 100%;
-  margin-left: calc(40% + 10px);
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: calc(40% + 10px);
   color: #1b7a43;
   font-weight: 700;
   font-size: 0.78rem;
