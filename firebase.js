@@ -16,13 +16,13 @@
         https://<project-id>-default-rtdb.<region>.firebasedatabase.app
    ================================================================= */
 const firebaseConfig = {
-  apiKey: "REPLACE_ME",
-  authDomain: "REPLACE_ME.firebaseapp.com",
-  databaseURL: "https://REPLACE_ME-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "REPLACE_ME",
-  storageBucket: "REPLACE_ME.firebasestorage.app",
-  messagingSenderId: "REPLACE_ME",
-  appId: "REPLACE_ME"
+  apiKey: "AIzaSyB5Px_2YZLRWiwTOOliTKnZ615zxW6NyjU",
+  authDomain: "azkasolar-34ac7.firebaseapp.com",
+  databaseURL: "https://azkasolar-34ac7-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "azkasolar-34ac7",
+  storageBucket: "azkasolar-34ac7.firebasestorage.app",
+  messagingSenderId: "701357506733",
+  appId: "1:701357506733:web:f19a6cda5c93e339750624"
 };
 
 firebase.initializeApp(firebaseConfig);
