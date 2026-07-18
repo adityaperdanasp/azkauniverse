@@ -32,6 +32,7 @@
   <button id="btn-home" class="icon-btn" aria-label="Home" title="Home">🏠</button>
   <div class="topbar-spacer"></div>
   <div id="xp-badge" class="xp-badge hidden"><span>✨</span><span id="xp-total">0</span> XP</div>
+  <button id="btn-badges" class="icon-btn" aria-label="Badges" title="Badges">🏅</button>
   <button id="btn-settings" class="icon-btn" aria-label="Settings" title="Settings">⚙️</button>
 </header>
 
@@ -80,8 +81,18 @@
        =============================================================== -->
   <section id="screen-solo-map" class="screen">
     <h2 class="title-lg">Quest Map</h2>
-    <p class="subtitle-sm">Tap a stop to begin!</p>
+    <p class="subtitle-sm">Follow the trail and tap a planet to begin!</p>
     <div id="quest-map" class="quest-map"></div>
+    <button class="btn btn-secondary" data-back="screen-landing">Back</button>
+  </section>
+
+  <!-- ===============================================================
+       SCREEN: Badge Collection
+       =============================================================== -->
+  <section id="screen-badges" class="screen">
+    <h2 class="title-lg">Badge Collection</h2>
+    <p class="subtitle-sm">Earn a badge by finishing a topic with 3 stars.</p>
+    <div id="badge-shelf" class="badge-shelf"></div>
     <button class="btn btn-secondary" data-back="screen-landing">Back</button>
   </section>
 

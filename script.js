@@ -134,6 +134,11 @@ $("btn-home").addEventListener("click", () => {
   showScreen("screen-landing");
 });
 $("btn-settings").addEventListener("click", () => showScreen("screen-settings"));
+$("btn-badges").addEventListener("click", async () => {
+  await loadQuestions();
+  renderBadgeShelf($("badge-shelf"));
+  showScreen("screen-badges");
+});
 
 /* =================================================================
    4. DATA LOADING
@@ -280,11 +285,230 @@ function renderQuestMap(container, { lockable, onSelect }) {
 
 async function openSoloMap() {
   await loadQuestions();
-  renderQuestMap($("quest-map"), {
-    lockable: true,
-    onSelect: (level) => startLevel(level.id, "solo")
-  });
+  renderQuestPathMap($("quest-map"));
   showScreen("screen-solo-map");
+}
+
+/* =================================================================
+   6b. QUEST PATH MAP (Solo mode v2) — winding path + parallax stars
+   -----------------------------------------------------------------
+   Node/segment coordinates are fixed for exactly 5 topics (matches
+   questionsData.levels' order: sun, mercury, earth, mars, jupiter).
+   ================================================================= */
+const PATH_NODE_POS = [
+  { x: 50, y: 90, side: "right" },
+  { x: 28, y: 320, side: "left" },
+  { x: 72, y: 560, side: "right" },
+  { x: 28, y: 800, side: "left" },
+  { x: 72, y: 1040, side: "right" }
+];
+const PATH_SEGMENTS = [
+  "M200,90 C260,180 260,230 110,320",
+  "M110,320 C-10,390 -10,470 290,560",
+  "M290,560 C480,630 480,720 110,800",
+  "M110,800 C-10,860 -10,940 290,1040"
+];
+
+// Hand-drawn planet illustrations, one per topic theme (questions.json's
+// `planetTheme` field). No image assets -- just inline SVG shapes.
+function planetSVG(theme) {
+  if (theme === "sun") {
+    return `<svg viewBox="0 0 100 100"><defs>
+        <radialGradient id="sunG" cx="38%" cy="32%" r="75%">
+          <stop offset="0%" stop-color="#fff3d0"/><stop offset="45%" stop-color="#ffd27a"/><stop offset="100%" stop-color="#e8912e"/>
+        </radialGradient></defs>
+      <g fill="none" stroke="#ffcf7e" stroke-width="2.5" opacity="0.8">
+        <path d="M50 4 L50 16"/><path d="M50 84 L50 96"/>
+        <path d="M4 50 L16 50"/><path d="M84 50 L96 50"/>
+        <path d="M16 16 L24 24"/><path d="M76 76 L84 84"/>
+        <path d="M84 16 L76 24"/><path d="M16 84 L24 76"/>
+      </g>
+      <circle cx="50" cy="50" r="26" fill="url(#sunG)"/></svg>`;
+  }
+  if (theme === "mercury") {
+    return `<svg viewBox="0 0 100 100"><defs>
+        <radialGradient id="atomG" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#dff0ff"/><stop offset="45%" stop-color="#7cc0ff"/><stop offset="100%" stop-color="#1266d8"/>
+        </radialGradient></defs>
+      <g fill="none" stroke="#bfe0ff" stroke-width="2">
+        <ellipse cx="50" cy="50" rx="40" ry="15"/>
+        <ellipse cx="50" cy="50" rx="40" ry="15" transform="rotate(60 50 50)"/>
+        <ellipse cx="50" cy="50" rx="40" ry="15" transform="rotate(120 50 50)"/>
+      </g>
+      <circle cx="50" cy="50" r="20" fill="url(#atomG)"/>
+      <circle cx="90" cy="50" r="3.5" fill="#fff"/></svg>`;
+  }
+  if (theme === "earth") {
+    return `<svg viewBox="0 0 100 100"><defs>
+        <radialGradient id="earthG" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#eafff2"/><stop offset="45%" stop-color="#5fd0a6"/><stop offset="100%" stop-color="#1a7fb8"/>
+        </radialGradient></defs>
+      <circle cx="50" cy="50" r="28" fill="url(#earthG)"/>
+      <path d="M32 34 q10 -6 18 2 q6 8 -4 12 q-10 4 -16 -4 q-4 -6 2 -10" fill="#2f9e6b" opacity="0.85"/>
+      <path d="M60 55 q8 -2 12 6 q2 6 -6 8 q-8 2 -10 -6 q-1 -5 4 -8" fill="#2f9e6b" opacity="0.85"/>
+      <g fill="none" stroke="#f2a94e" stroke-width="2" stroke-linecap="round">
+        <path d="M78 30 a30 30 0 0 1 6 14"/><path d="M22 70 a30 30 0 0 1 -6 -14"/>
+      </g></svg>`;
+  }
+  if (theme === "mars") {
+    return `<svg viewBox="0 0 100 100"><defs>
+        <radialGradient id="marsG" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#ffcfa8"/><stop offset="45%" stop-color="#e2703f"/><stop offset="100%" stop-color="#9c3d1f"/>
+        </radialGradient></defs>
+      <circle cx="50" cy="50" r="28" fill="url(#marsG)"/>
+      <g stroke="#ffe3cc" stroke-width="1.4" opacity="0.75">
+        <line x1="24" y1="38" x2="76" y2="38"/><line x1="24" y1="50" x2="76" y2="50"/><line x1="24" y1="62" x2="76" y2="62"/>
+        <line x1="38" y1="24" x2="38" y2="76"/><line x1="62" y1="24" x2="62" y2="76"/>
+      </g></svg>`;
+  }
+  if (theme === "jupiter") {
+    return `<svg viewBox="0 0 100 100"><defs>
+        <radialGradient id="jupG" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#fff0c9"/><stop offset="45%" stop-color="#e0b06a"/><stop offset="100%" stop-color="#a9743a"/>
+        </radialGradient></defs>
+      <circle cx="50" cy="50" r="28" fill="url(#jupG)"/>
+      <path d="M22 42 h56 M22 50 h56 M22 58 h56" stroke="#a9743a" stroke-width="3" opacity="0.4"/>
+      <circle cx="50" cy="50" r="28" fill="none" stroke="#fff" stroke-width="1.4" opacity="0.5"/>
+      <path d="M50 36 v14 l9 5" stroke="#7a4f1e" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>`;
+  }
+  return `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="28" fill="#c9cdea"/></svg>`;
+}
+
+function renderQuestPathMap(container) {
+  container.innerHTML = "";
+  container.className = "path-map-wrap";
+
+  const levels = questionsData.levels;
+  const unlockedFlags = levels.map((_, i) => isLevelUnlocked(i));
+
+  let segMarkup = "";
+  PATH_SEGMENTS.forEach((d, i) => {
+    const lit = unlockedFlags[i + 1];
+    segMarkup += lit
+      ? `<path d="${d}" fill="none" stroke="url(#pathLit)" stroke-width="4" stroke-linecap="round" filter="url(#pathGlow)"/>`
+      : `<path d="${d}" fill="none" stroke="var(--locked-color)" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 12"/>`;
+  });
+
+  container.insertAdjacentHTML("beforeend", `
+    <div class="path-field" id="path-field"></div>
+    <svg class="path-map-svg" viewBox="0 0 400 1180" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="pathLit" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--accent-yellow)"/>
+          <stop offset="100%" stop-color="var(--secondary)"/>
+        </linearGradient>
+        <filter id="pathGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      ${segMarkup}
+    </svg>
+  `);
+
+  levels.forEach((level, i) => {
+    const pos = PATH_NODE_POS[i];
+    const unlocked = unlockedFlags[i];
+    const lp = progress.levels[level.id];
+    const stars = lp ? lp.stars : 0;
+    const completed = !!(lp && lp.completed);
+    const isCurrent = unlocked && !completed;
+
+    let meta;
+    if (completed) meta = `Selesai · ${stars}/3 bintang`;
+    else if (isCurrent) meta = "Sedang main";
+    else meta = "Terkunci";
+
+    const btn = document.createElement("button");
+    btn.className = `path-node side-${pos.side}` + (unlocked ? "" : " locked");
+    btn.style.left = pos.x + "%";
+    btn.style.top = pos.y + "px";
+    btn.disabled = !unlocked;
+    btn.innerHTML = `
+      <span class="path-planet">
+        <span class="path-halo"></span>
+        ${planetSVG(level.planetTheme)}
+        ${unlocked ? "" : '<span class="path-lock-chip">🔒</span>'}
+      </span>
+      <span class="path-node-name">${level.name}</span>
+      <span class="path-node-stars">${starsMarkup(stars)}</span>
+      <span class="path-node-meta">${meta}</span>
+    `;
+    if (unlocked) btn.addEventListener("click", () => startLevel(level.id, "solo"));
+    container.appendChild(btn);
+  });
+
+  buildPathStarfield($("path-field"));
+}
+
+// Layered parallax starfield behind the path map -- generated once from
+// small inline SVG data-URIs (no image assets), regenerated whenever the
+// map (re)renders so the dot color matches the active Colorful/Pastel theme.
+function buildPathStarfield(field) {
+  field.innerHTML = "";
+  const rgb = getComputedStyle(document.documentElement).getPropertyValue("--star-dot-rgb").trim();
+  function layerBg(count, size, opacity) {
+    const dots = [];
+    for (let i = 0; i < count; i++) {
+      const x = Math.random() * 200, y = Math.random() * 200, r = Math.random() * size + 0.4;
+      dots.push(`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" fill="rgb(${rgb})" opacity="${opacity}"/>`);
+    }
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">${dots.join("")}</svg>`;
+    return "url('data:image/svg+xml;utf8," + encodeURIComponent(svg) + "')";
+  }
+  [
+    { bg: layerBg(40, 1.1, 0.9), speed: 0.08, size: "200px 200px" },
+    { bg: layerBg(28, 1.6, 0.7), speed: 0.18, size: "260px 260px" },
+    { bg: layerBg(16, 2.2, 0.55), speed: 0.32, size: "320px 320px" }
+  ].forEach(l => {
+    const div = document.createElement("div");
+    div.className = "path-field-layer";
+    div.style.backgroundImage = l.bg;
+    div.style.backgroundSize = l.size;
+    div.dataset.speed = l.speed;
+    field.appendChild(div);
+  });
+}
+
+let pathParallaxTicking = false;
+function updatePathParallax() {
+  const wrap = document.querySelector(".path-map-wrap");
+  const screen = $("screen-solo-map");
+  if (!wrap || !screen.classList.contains("active")) return;
+  const scrolledInto = -wrap.getBoundingClientRect().top;
+  wrap.querySelectorAll(".path-field-layer").forEach(el => {
+    const speed = parseFloat(el.dataset.speed);
+    el.style.transform = `translateY(${scrolledInto * speed * -0.15}px)`;
+  });
+}
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  window.addEventListener("scroll", () => {
+    if (pathParallaxTicking) return;
+    pathParallaxTicking = true;
+    requestAnimationFrame(() => { updatePathParallax(); pathParallaxTicking = false; });
+  }, { passive: true });
+}
+
+/* =================================================================
+   6c. BADGE SHELF (Collection screen)
+   -----------------------------------------------------------------
+   A badge is earned once a topic has been completed with all 3 stars.
+   Reuses the existing per-level `stars` progress -- no new storage.
+   ================================================================= */
+function renderBadgeShelf(container) {
+  container.innerHTML = "";
+  questionsData.levels.forEach(level => {
+    const lp = progress.levels[level.id];
+    const earned = !!(lp && lp.stars === 3);
+    const div = document.createElement("div");
+    div.className = "badge-medal" + (earned ? " earned" : " locked");
+    div.innerHTML = `
+      <span class="badge-disc">${level.emoji}</span>
+      <span class="badge-label">${level.name}</span>
+      <span class="badge-cond">${earned ? "Didapat" : "Perlu 3 bintang"}</span>
+    `;
+    container.appendChild(div);
+  });
 }
 
 /* =================================================================
