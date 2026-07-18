@@ -284,7 +284,13 @@ function startLevel(levelId, mode) {
   state.mode = mode;
   state.levelId = levelId;
   state.levelIndex = levelIndexOf(levelId);
-  state.questions = questionsData.levels[state.levelIndex].questions.slice();
+
+  const bank = questionsData.levels[state.levelIndex].questions;
+  // Solo: freshly shuffled every play. Multiplayer: shuffled the same way on
+  // both devices (seeded by the pairing code) so racers see identical questions.
+  state.questions = mode === "multiplayer"
+    ? seededShuffle(bank, state.mp.code)
+    : shuffle(bank);
   state.qIndex = 0;
   state.correctCount = 0;
   state.locked = false;
@@ -383,17 +389,20 @@ function renderMC(stage, q) {
   wrap.innerHTML = `<p class="question-text">${q.question}</p><div class="options-grid"></div>`;
   const grid = wrap.querySelector(".options-grid");
 
-  q.options.forEach((opt, i) => {
+  // Shuffle option order each time this question is shown (doesn't mutate q).
+  const order = shuffle(q.options.map((_, i) => i));
+
+  order.forEach((originalIndex, displayIndex) => {
     const btn = document.createElement("button");
     btn.className = "option-btn";
-    btn.textContent = opt;
+    btn.textContent = q.options[originalIndex];
     btn.addEventListener("click", () => {
       if (state.locked) return;
-      const isCorrect = i === q.answer;
+      const isCorrect = originalIndex === q.answer;
       [...grid.children].forEach((b, bi) => {
         b.disabled = true;
-        if (bi === q.answer) b.classList.add("correct");
-        else if (bi === i) b.classList.add("wrong");
+        if (order[bi] === q.answer) b.classList.add("correct");
+        else if (bi === displayIndex) b.classList.add("wrong");
       });
       handleAnswer(isCorrect);
     });
@@ -433,6 +442,23 @@ function shuffle(arr) {
   const a = arr.slice();
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Deterministic shuffle so both multiplayer devices land on the same
+// question order without talking to each other — seeded by the pairing code.
+function seededShuffle(arr, seedStr) {
+  let seed = 0;
+  for (let i = 0; i < seedStr.length; i++) seed = (seed * 31 + seedStr.charCodeAt(i)) >>> 0;
+  const rand = () => {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    return seed / 4294967296;
+  };
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
