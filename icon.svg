@@ -1,0 +1,41 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a1b6e"/>
+      <stop offset="55%" stop-color="#1266d8"/>
+      <stop offset="100%" stop-color="#4d2fb8"/>
+    </linearGradient>
+    <linearGradient id="planet" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd27a"/>
+      <stop offset="100%" stop-color="#ff9f45"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fff3d6"/>
+      <stop offset="100%" stop-color="#ffd27a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <circle cx="120" cy="110" r="7" fill="#ffffff" opacity="0.85"/>
+  <circle cx="410" cy="90" r="5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="440" cy="180" r="4" fill="#ffffff" opacity="0.6"/>
+  <circle cx="80" cy="250" r="4" fill="#ffffff" opacity="0.6"/>
+  <circle cx="70" cy="400" r="6" fill="#ffffff" opacity="0.75"/>
+  <circle cx="430" cy="410" r="6" fill="#ffffff" opacity="0.8"/>
+
+  <g transform="translate(256 300) rotate(-18)">
+    <ellipse cx="0" cy="0" rx="185" ry="52" fill="none" stroke="url(#ring)" stroke-width="20" opacity="0.95"/>
+    <circle cx="0" cy="0" r="108" fill="url(#planet)"/>
+    <ellipse cx="0" cy="0" rx="185" ry="52" fill="none" stroke="#c76a1f" stroke-width="4" opacity="0.35"/>
+    <ellipse cx="-38" cy="-22" rx="22" ry="13" fill="#ffffff" opacity="0.18"/>
+    <circle cx="-30" cy="30" r="14" fill="#d97a2b" opacity="0.35"/>
+    <circle cx="40" cy="-10" r="10" fill="#d97a2b" opacity="0.3"/>
+    <circle cx="20" cy="45" r="8" fill="#d97a2b" opacity="0.3"/>
+  </g>
+
+  <g fill="#ffffff">
+    <path d="M 388 130 l 10 24 24 10 -24 10 -10 24 -10 -24 -24 -10 24 -10 z" opacity="0.9"/>
+    <path d="M 118 320 l 7 16 16 7 -16 7 -7 16 -7 -16 -16 -7 16 -7 z" opacity="0.85"/>
+  </g>
+</svg>
