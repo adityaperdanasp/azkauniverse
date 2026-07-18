@@ -1,0 +1,737 @@
+/* =================================================================
+   SolarQuest — style.css
+   All styling for both color themes, Fredoka typography, layout,
+   and the Brain Rest cat animations.
+
+   Sections:
+     1. Theme variables (Colorful / Pastel)
+     2. Reset & base
+     3. Top bar
+     4. Landing & mode cards
+     5. Settings
+     6. Quest map
+     7. Play screen (questions, progress, feedback)
+     8. Brain Rest break
+     9. Reward screen
+    10. Multiplayer screens
+    11. Buttons & shared components
+    12. Responsive
+   ================================================================= */
+
+/* =================================================================
+   1. THEME VARIABLES
+   -----------------------------------------------------------------
+   Two palettes, toggled by [data-theme] on <html>. #1266d8 (Adit's
+   brand blue) is the secondary accent in the Colorful theme.
+   ================================================================= */
+:root,
+[data-theme="colorful"] {
+  --bg-grad: linear-gradient(160deg, #0b0f2e 0%, #1b1464 45%, #3a1b6e 100%);
+  --surface: #ffffff;
+  --surface-soft: rgba(255, 255, 255, 0.08);
+  --text-on-dark: #ffffff;
+  --text-on-light: #201a3e;
+  --text-muted: rgba(255, 255, 255, 0.72);
+
+  --primary: #ff9f1c;
+  --primary-dark: #e6810a;
+  --secondary: #1266d8;
+  --accent-pink: #ff5d8f;
+  --accent-yellow: #ffd93d;
+
+  --success: #2ecc71;
+  --success-bg: #e8fbef;
+  --gentle: #4a90d9;
+  --gentle-bg: #e9f2fc;
+
+  --star-filled: #ffd93d;
+  --star-empty: rgba(32, 26, 62, 0.15);
+
+  --card-shadow: 0 10px 30px rgba(10, 5, 40, 0.35);
+  --locked-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="pastel"] {
+  --bg-grad: linear-gradient(160deg, #fdf3f7 0%, #eef1fb 50%, #e8f6f3 100%);
+  --surface: #ffffff;
+  --surface-soft: rgba(32, 26, 62, 0.04);
+  --text-on-dark: #3c3660;
+  --text-on-light: #3c3660;
+  --text-muted: rgba(60, 54, 96, 0.65);
+
+  --primary: #f7a8b8;
+  --primary-dark: #ee8ba0;
+  --secondary: #7ea8e0;
+  --accent-pink: #f5c2e7;
+  --accent-yellow: #ffe29a;
+
+  --success: #6dbf8b;
+  --success-bg: #e6f6ec;
+  --gentle: #8fb3e0;
+  --gentle-bg: #edf3fc;
+
+  --star-filled: #ffcb6b;
+  --star-empty: rgba(60, 54, 96, 0.15);
+
+  --card-shadow: 0 10px 26px rgba(120, 110, 160, 0.18);
+  --locked-color: rgba(60, 54, 96, 0.25);
+}
+
+/* =================================================================
+   2. RESET & BASE
+   ================================================================= */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Fredoka", system-ui, sans-serif;
+  background: var(--bg-grad);
+  color: var(--text-on-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.4s ease;
+}
+
+button, input {
+  font-family: inherit;
+}
+
+.hidden { display: none !important; }
+
+/* =================================================================
+   3. TOP BAR
+   ================================================================= */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.topbar-spacer { flex: 1; }
+
+.icon-btn {
+  background: var(--surface-soft);
+  border: none;
+  border-radius: 14px;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  transition: transform 0.15s ease;
+}
+.icon-btn:active { transform: scale(0.92); }
+
+.xp-badge {
+  background: var(--surface-soft);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* =================================================================
+   MAIN / SCREENS
+   ================================================================= */
+#app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 10px 20px 60px;
+}
+
+.screen { display: none; }
+.screen.active { display: block; animation: fadeIn 0.3s ease; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.title-xl {
+  font-size: clamp(2.2rem, 8vw, 3.2rem);
+  font-weight: 700;
+  margin: 4px 0 0;
+  text-align: center;
+}
+
+.title-lg {
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 10px 0 4px;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin: 4px 0 30px;
+}
+
+.subtitle-sm {
+  text-align: center;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin: 0 0 20px;
+}
+
+/* =================================================================
+   4. LANDING & MODE CARDS
+   ================================================================= */
+.hero { text-align: center; padding: 30px 0 10px; }
+.hero-planet {
+  font-size: 4.5rem;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(6deg); }
+}
+
+.mode-choice {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.mode-card {
+  background: var(--surface);
+  color: var(--text-on-light);
+  border: none;
+  border-radius: 24px;
+  padding: 24px;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: transform 0.15s ease;
+}
+.mode-card:active { transform: scale(0.97); }
+
+.mode-emoji { font-size: 2.2rem; }
+.mode-label { font-size: 1.3rem; font-weight: 700; }
+.mode-desc { font-size: 0.9rem; color: #6b6690; font-weight: 500; }
+
+/* =================================================================
+   5. SETTINGS
+   ================================================================= */
+.settings-card {
+  background: var(--surface);
+  color: var(--text-on-light);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 20px;
+}
+.settings-label { font-weight: 600; margin: 0 0 12px; }
+
+.seg-control {
+  display: flex;
+  background: var(--surface-soft);
+  border-radius: 14px;
+  padding: 4px;
+  gap: 4px;
+}
+[data-theme] .settings-card .seg-control { background: #f0eefb; }
+
+.seg-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: inherit;
+}
+.seg-btn.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* =================================================================
+   6. QUEST MAP
+   ================================================================= */
+.quest-map {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 0 20px;
+  position: relative;
+}
+
+.quest-node {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface);
+  color: var(--text-on-light);
+  border-radius: 20px;
+  padding: 16px 18px;
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  position: relative;
+}
+.quest-node:nth-child(even) { margin-left: 12%; }
+.quest-node:nth-child(odd) { margin-right: 12%; }
+
+.quest-node.locked {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: grayscale(0.4);
+}
+
+.quest-node-icon {
+  font-size: 2rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gentle-bg);
+  flex-shrink: 0;
+}
+
+.quest-node-body { flex: 1; }
+.quest-node-name { font-weight: 700; font-size: 1.05rem; }
+.quest-node-stars { color: var(--star-filled); font-size: 0.95rem; letter-spacing: 1px; }
+.quest-node-stars .empty { color: var(--star-empty); }
+.quest-node-lock { font-size: 1.4rem; }
+
+/* =================================================================
+   7. PLAY SCREEN
+   ================================================================= */
+.play-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.level-chip {
+  background: var(--surface-soft);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.progress-track {
+  flex: 1;
+  height: 12px;
+  background: var(--surface-soft);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-track.small { height: 8px; }
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), var(--accent-yellow));
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+.progress-fill.alt {
+  background: linear-gradient(90deg, var(--secondary), var(--accent-pink));
+}
+
+.question-count {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.mp-race-row {
+  background: var(--surface-soft);
+  border-radius: 16px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mp-lane { display: flex; align-items: center; gap: 10px; }
+.mp-lane-label { font-weight: 700; font-size: 0.8rem; width: 46px; }
+.mp-score { font-weight: 700; font-size: 0.85rem; width: 24px; text-align: right; }
+
+.question-stage {
+  background: var(--surface);
+  color: var(--text-on-light);
+  border-radius: 24px;
+  padding: 26px 22px;
+  box-shadow: var(--card-shadow);
+  min-height: 260px;
+}
+
+.question-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 20px;
+  line-height: 1.4;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.option-btn {
+  background: var(--gentle-bg);
+  border: 3px solid transparent;
+  border-radius: 16px;
+  padding: 16px 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--text-on-light);
+  transition: transform 0.12s ease, border-color 0.2s ease;
+}
+.option-btn:active { transform: scale(0.96); }
+.option-btn.correct { border-color: var(--success); background: var(--success-bg); }
+.option-btn.wrong { border-color: var(--accent-pink); }
+.option-btn:disabled { cursor: default; }
+
+.fill-form { display: flex; flex-direction: column; gap: 16px; align-items: stretch; }
+.fill-input {
+  border: 3px solid var(--gentle-bg);
+  background: var(--gentle-bg);
+  border-radius: 16px;
+  padding: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-on-light);
+}
+.fill-input:focus { outline: none; border-color: var(--secondary); }
+
+.match-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.match-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.match-term {
+  flex: 0 0 40%;
+  background: var(--gentle-bg);
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-align: center;
+}
+.match-select {
+  flex: 1;
+  border: 3px solid var(--gentle-bg);
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-on-light);
+}
+.match-row.correct .match-select { border-color: var(--success); }
+
+.flashcard {
+  min-height: 200px;
+  border-radius: 18px;
+  background: var(--gentle-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  font-weight: 600;
+  font-size: 1.15rem;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+.flashcard.flipped { background: var(--success-bg); }
+.flashcard-hint {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 14px;
+}
+
+.stage-actions { margin-top: 20px; display: flex; justify-content: center; }
+
+/* Feedback popup (star burst / confetti) */
+.feedback-popup {
+  position: fixed;
+  left: 50%;
+  top: 22%;
+  transform: translate(-50%, 0);
+  z-index: 50;
+  padding: 16px 26px;
+  border-radius: 18px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-align: center;
+  max-width: 86%;
+  pointer-events: none;
+  animation: popIn 0.35s ease;
+}
+.feedback-popup.correct {
+  background: var(--success-bg);
+  color: #1b7a43;
+  box-shadow: 0 8px 24px rgba(46, 204, 113, 0.35);
+}
+.feedback-popup.wrong {
+  background: var(--gentle-bg);
+  color: #2b5a8a;
+  box-shadow: 0 8px 24px rgba(74, 144, 217, 0.25);
+}
+
+@keyframes popIn {
+  0% { transform: translate(-50%, 10px) scale(0.7); opacity: 0; }
+  60% { transform: translate(-50%, -4px) scale(1.05); opacity: 1; }
+  100% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+}
+
+.burst {
+  position: fixed;
+  z-index: 49;
+  font-size: 1.4rem;
+  pointer-events: none;
+  animation: burstFly 0.9s ease-out forwards;
+}
+@keyframes burstFly {
+  0% { transform: translate(0, 0) scale(0.6) rotate(0deg); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(1.1) rotate(180deg); opacity: 0; }
+}
+
+/* =================================================================
+   8. BRAIN REST BREAK
+   ================================================================= */
+.brain-rest-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-grad);
+  text-align: center;
+  padding: 20px;
+}
+.brain-rest-screen.active { display: flex; }
+
+.cat-scene {
+  display: flex;
+  gap: 34px;
+  font-size: 4.2rem;
+  margin-bottom: 20px;
+}
+
+.cat { display: inline-block; }
+#cat1 { animation: catBounce 1.1s ease-in-out infinite; }
+#cat2 { animation: catSway 1.6s ease-in-out infinite; }
+#cat3 { animation: catWiggle 0.9s ease-in-out infinite; }
+
+@keyframes catBounce {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-26px) rotate(4deg); }
+}
+@keyframes catSway {
+  0%, 100% { transform: translateX(-14px) rotate(-8deg); }
+  50% { transform: translateX(14px) rotate(8deg); }
+}
+@keyframes catWiggle {
+  0%, 100% { transform: rotate(-10deg) scale(1); }
+  25% { transform: rotate(8deg) scale(1.05); }
+  50% { transform: rotate(-6deg) scale(0.98); }
+  75% { transform: rotate(10deg) scale(1.04); }
+}
+
+.brain-rest-title {
+  font-size: clamp(2.4rem, 10vw, 3.6rem);
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.brain-rest-sub {
+  color: var(--text-muted);
+  font-weight: 500;
+  margin: 0 0 30px;
+}
+
+/* =================================================================
+   9. REWARD SCREEN
+   ================================================================= */
+.reward-card {
+  background: var(--surface);
+  color: var(--text-on-light);
+  border-radius: 26px;
+  padding: 34px 26px;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+  margin-top: 20px;
+}
+.reward-badge {
+  font-size: 4rem;
+  margin-bottom: 6px;
+  animation: badgePop 0.5s ease;
+}
+@keyframes badgePop {
+  0% { transform: scale(0); }
+  70% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.stars-row { font-size: 2.4rem; margin: 14px 0; color: var(--star-empty); letter-spacing: 6px; }
+.stars-row .filled { color: var(--star-filled); }
+
+.reward-xp {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--secondary);
+  margin: 0 0 22px;
+}
+
+/* =================================================================
+   10. MULTIPLAYER
+   ================================================================= */
+.pairing-code {
+  text-align: center;
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: 8px;
+  background: var(--surface);
+  color: var(--text-on-light);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 20px;
+}
+
+.qr-box {
+  display: flex;
+  justify-content: center;
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 16px;
+}
+
+.join-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.code-input {
+  width: 100%;
+  max-width: 280px;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  padding: 16px;
+  border-radius: 16px;
+  border: 3px solid var(--surface);
+  background: var(--surface);
+  color: var(--text-on-light);
+}
+.code-input:focus { outline: none; border-color: var(--secondary); }
+
+.qr-video {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 18px;
+  background: #000;
+}
+
+.error-text {
+  text-align: center;
+  color: var(--accent-pink);
+  font-weight: 600;
+  min-height: 20px;
+}
+
+.mp-final-scores {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 16px 0 24px;
+}
+
+/* =================================================================
+   11. BUTTONS & SHARED COMPONENTS
+   ================================================================= */
+.btn {
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 16px;
+  padding: 15px 20px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 12px;
+  font-family: inherit;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-secondary {
+  background: var(--surface-soft);
+  color: var(--text-on-dark);
+}
+.screen:not(.brain-rest-screen) .btn-secondary,
+.settings-card ~ .btn-secondary {
+  color: var(--text-on-dark);
+}
+.btn:active { transform: scale(0.97); }
+
+/* =================================================================
+   12. RESPONSIVE
+   ================================================================= */
+@media (min-width: 640px) {
+  .mode-choice { flex-direction: row; }
+  .mode-card { flex: 1; }
+}
+
+@media (max-width: 420px) {
+  .options-grid { grid-template-columns: 1fr; }
+  .quest-node:nth-child(even) { margin-left: 4%; }
+  .quest-node:nth-child(odd) { margin-right: 4%; }
+}

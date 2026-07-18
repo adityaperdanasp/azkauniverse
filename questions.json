@@ -1,0 +1,316 @@
+{
+  "_comment": "SolarQuest question bank. Levels are played in array order below (see levels.json order). Each level has an id, display name, emoji icon, and a `questions` array. Question `type` must be one of: mc | fill | match | flashcard. Keep the type sequence rotating (no repeats back to back) when you add more questions -- the game engine also enforces this automatically at runtime. See README.md for the full field reference per type.",
+
+  "levels": [
+    {
+      "id": "star-lifecycle",
+      "name": "Life Cycle of a Star",
+      "emoji": "⭐",
+      "planetTheme": "sun",
+      "questions": [
+        {
+          "type": "mc",
+          "question": "What is a large cloud of gas and dust in space called?",
+          "options": ["Nebula", "Protostar", "Supernova", "Meteor"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The Sun is currently a _____ sequence star.",
+          "answer": "main",
+          "acceptable": ["main", "main sequence"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each word to its meaning.",
+          "pairs": [
+            { "term": "Nebula", "match": "A cloud of gas and dust" },
+            { "term": "Protostar", "match": "The earliest stage of a star" },
+            { "term": "White dwarf", "match": "Leftover core after a red giant" },
+            { "term": "Supernova", "match": "Explosion of a dying massive star" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "What happens when a main sequence star runs out of hydrogen fuel?",
+          "back": "It expands into a red giant (or a red supergiant if it's very massive)!"
+        },
+        {
+          "type": "mc",
+          "question": "What do we call the explosion of a dying massive star?",
+          "options": ["Supernova", "Nebula", "Eclipse", "Protostar"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The most massive stars can collapse into a _____ _____ after they die.",
+          "answer": "black hole",
+          "acceptable": ["black hole"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each word to its meaning.",
+          "pairs": [
+            { "term": "Red giant", "match": "Stars the size of the Sun swell into this" },
+            { "term": "Neutron star", "match": "Leftover core of a supernova" },
+            { "term": "Black hole", "match": "Gravity so strong not even light escapes" },
+            { "term": "Black dwarf", "match": "The cold, dead remains of a white dwarf" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "What are stars mostly made of?",
+          "back": "Hydrogen and helium gas!"
+        }
+      ]
+    },
+    {
+      "id": "atom-structure",
+      "name": "Basic Structure of an Atom",
+      "emoji": "🔬",
+      "planetTheme": "mercury",
+      "questions": [
+        {
+          "type": "mc",
+          "question": "What are the tiny building blocks that make up everything around us?",
+          "options": ["Atoms", "Cells", "Molecules only", "Planets"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The center of an atom is called the _____.",
+          "answer": "nucleus",
+          "acceptable": ["nucleus"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each particle to its description.",
+          "pairs": [
+            { "term": "Proton", "match": "Positively charged particle" },
+            { "term": "Neutron", "match": "Neutral particle with no charge" },
+            { "term": "Electron", "match": "Negatively charged particle that zips around the nucleus" },
+            { "term": "Nucleus", "match": "The core of the atom" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "What two particles are found in the nucleus of an atom?",
+          "back": "Protons and neutrons!"
+        },
+        {
+          "type": "mc",
+          "question": "What chart lists all the known elements in order?",
+          "options": ["Periodic table", "Star chart", "Atlas", "Almanac"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The atomic number tells you how many _____ an atom has.",
+          "answer": "protons",
+          "acceptable": ["protons"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each term to its meaning on the periodic table.",
+          "pairs": [
+            { "term": "Atomic number", "match": "Number of protons in an element" },
+            { "term": "Mass number", "match": "Total protons plus neutrons" },
+            { "term": "Group", "match": "A vertical column on the periodic table" },
+            { "term": "Period", "match": "A horizontal row on the periodic table" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Where do electrons live in an atom?",
+          "back": "In a cloud that zips around the nucleus!"
+        }
+      ]
+    },
+    {
+      "id": "earth-rotation",
+      "name": "Earth Rotation",
+      "emoji": "🌍",
+      "planetTheme": "earth",
+      "questions": [
+        {
+          "type": "mc",
+          "question": "How long does it take Earth to complete one full rotation?",
+          "options": ["24 hours", "365 days", "1 hour", "7 days"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Earth's _____ causes day and night.",
+          "answer": "rotation",
+          "acceptable": ["rotation"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each word to its meaning.",
+          "pairs": [
+            { "term": "Rotation", "match": "Earth spinning on its axis (24 hours)" },
+            { "term": "Revolution", "match": "Earth orbiting the Sun (365 days)" },
+            { "term": "Axis", "match": "The imaginary line Earth spins around" },
+            { "term": "Seasons", "match": "Caused by Earth's tilt and revolution" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Why do we have seasons?",
+          "back": "Because Earth is tilted on its axis as it orbits the Sun, so different parts get more or less direct sunlight!"
+        },
+        {
+          "type": "mc",
+          "question": "How long does it take Earth to revolve once around the Sun?",
+          "options": ["365 days", "24 hours", "30 days", "100 days"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The imaginary line Earth spins around is called its _____.",
+          "answer": "axis",
+          "acceptable": ["axis"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each moon phase to its description.",
+          "pairs": [
+            { "term": "New moon", "match": "Moon looks completely dark" },
+            { "term": "Full moon", "match": "Moon looks like a complete bright circle" },
+            { "term": "Waxing crescent", "match": "A thin sliver that is growing bigger" },
+            { "term": "Waning gibbous", "match": "Almost a full moon, but shrinking" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Does the Sun really move across the sky?",
+          "back": "No! It only looks that way because Earth is rotating."
+        }
+      ]
+    },
+    {
+      "id": "globes-maps",
+      "name": "Globes and Maps",
+      "emoji": "🗺️",
+      "planetTheme": "mars",
+      "questions": [
+        {
+          "type": "mc",
+          "question": "What is the imaginary line that divides Earth into Northern and Southern halves?",
+          "options": ["Equator", "Prime Meridian", "Axis", "Tropic"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Lines that run east-west around the globe, like the equator, are called lines of _____.",
+          "answer": "latitude",
+          "acceptable": ["latitude"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each term to what it means.",
+          "pairs": [
+            { "term": "Equator", "match": "Divides Earth into North and South halves" },
+            { "term": "Prime Meridian", "match": "Divides Earth into East and West halves" },
+            { "term": "North Pole", "match": "The very top of the Earth" },
+            { "term": "International Date Line", "match": "Opposite side of the globe from the Prime Meridian" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "What are lines of longitude used for?",
+          "back": "They run north-south, from pole to pole, and help measure how far east or west a place is!"
+        },
+        {
+          "type": "mc",
+          "question": "On a map, which direction is usually at the top?",
+          "options": ["North", "South", "East", "West"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "A map's _____ explains what each symbol on the map means.",
+          "answer": "key",
+          "acceptable": ["key", "legend"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each compass letter to its direction.",
+          "pairs": [
+            { "term": "N", "match": "North" },
+            { "term": "S", "match": "South" },
+            { "term": "E", "match": "East" },
+            { "term": "W", "match": "West" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "What is a compass rose used for on a map?",
+          "back": "It shows the four main directions -- North, South, East, and West!"
+        }
+      ]
+    },
+    {
+      "id": "time-system",
+      "name": "Time System",
+      "emoji": "🕐",
+      "planetTheme": "jupiter",
+      "questions": [
+        {
+          "type": "mc",
+          "question": "In the 24-hour clock, what time is 7:25 p.m.?",
+          "options": ["19:25", "07:25", "17:25", "09:25"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Noon means it is _____ o'clock in the daytime.",
+          "answer": "12",
+          "acceptable": ["12", "twelve"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each term to its meaning.",
+          "pairs": [
+            { "term": "a.m.", "match": "Time before noon" },
+            { "term": "p.m.", "match": "Time after noon" },
+            { "term": "Noon", "match": "12:00 in the middle of the day" },
+            { "term": "Midnight", "match": "00:00 in the middle of the night" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "How do you turn a p.m. time into 24-hour time?",
+          "back": "Add 12 to the hour! For example, 7:25 p.m. becomes 19:25."
+        },
+        {
+          "type": "mc",
+          "question": "What time is midnight on the 24-hour clock?",
+          "options": ["00:00", "12:00", "06:00", "24:30"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "A digital clock shows time using numbers, while an _____ clock uses moving hands.",
+          "answer": "analogue",
+          "acceptable": ["analogue", "analog"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each 24-hour clock time to the correct a.m./p.m. time.",
+          "pairs": [
+            { "term": "08:40", "match": "8:40 a.m." },
+            { "term": "19:25", "match": "7:25 p.m." },
+            { "term": "21:05", "match": "9:05 p.m." },
+            { "term": "10:25", "match": "10:25 a.m." }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Why do we use the 24-hour clock?",
+          "back": "It avoids mixing up a.m. and p.m. by counting all 24 hours in a day, from 00:00 to 23:59!"
+        }
+      ]
+    }
+  ]
+}
