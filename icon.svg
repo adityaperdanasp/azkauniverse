@@ -71,8 +71,16 @@
   <ellipse cx="256" cy="398" rx="150" ry="26" fill="url(#shadowFade)"/>
 
   <g transform="translate(256 240) rotate(-16)">
-    <!-- back half of ring (behind the planet) -->
-    <path d="M -190 0 A 190 54 0 0 1 190 0" fill="none" stroke="url(#ringBack)" stroke-width="22" stroke-linecap="round"/>
+    <!-- back half of the ring system (behind the planet): flat, gapped bands
+         made of short dashes so they read as countless tiny rocks/ice chunks
+         rather than a solid painted band, like Saturn's real rings. -->
+    <g fill="none" stroke-linecap="round" opacity="0.92">
+      <path d="M -150 0 A 150 27 0 0 1 150 0" stroke="#c9b48a" stroke-width="9" stroke-dasharray="2.4 2.1"/>
+      <path d="M -168 0 A 168 30 0 0 1 168 0" stroke="#8f7a52" stroke-width="2.5" stroke-dasharray="1.5 2.5" opacity="0.5"/>
+      <path d="M -186 0 A 186 33 0 0 1 186 0" stroke="#f0e4c4" stroke-width="15" stroke-dasharray="3.1 2.3"/>
+      <path d="M -207 0 A 207 37 0 0 1 207 0" stroke="#8f7a52" stroke-width="2" stroke-dasharray="1.4 2.8" opacity="0.45"/>
+      <path d="M -220 0 A 220 39 0 0 1 220 0" stroke="#ab9873" stroke-width="7" stroke-dasharray="1.9 2.6" opacity="0.85"/>
+    </g>
 
     <!-- planet sphere: Saturn-emoji style horizontal colour bands -->
     <g clip-path="url(#planetClip)">
@@ -97,9 +105,15 @@
     <ellipse cx="-40" cy="-42" rx="34" ry="22" fill="url(#specular)"/>
 
     <!-- shadow the front ring casts onto the planet -->
-    <path d="M -112 6 A 190 40 0 0 0 112 6" fill="none" stroke="#5a3d16" stroke-width="14" opacity="0.28" stroke-linecap="round"/>
+    <path d="M -112 5 A 150 26 0 0 0 112 5" fill="none" stroke="#5a3d16" stroke-width="10" opacity="0.25" stroke-linecap="round"/>
 
-    <!-- front half of ring (in front of the planet) -->
-    <path d="M -190 0 A 190 54 0 0 0 190 0" fill="none" stroke="url(#ringFront)" stroke-width="24" stroke-linecap="round"/>
+    <!-- front half of the ring system (in front of the planet) -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M -150 0 A 150 27 0 0 0 150 0" stroke="#d9a75f" stroke-width="9" stroke-dasharray="2.4 2.1"/>
+      <path d="M -168 0 A 168 30 0 0 0 168 0" stroke="#6b4c22" stroke-width="2.5" stroke-dasharray="1.5 2.5" opacity="0.55"/>
+      <path d="M -186 0 A 186 33 0 0 0 186 0" stroke="#ffe9bd" stroke-width="15" stroke-dasharray="3.1 2.3"/>
+      <path d="M -207 0 A 207 37 0 0 0 207 0" stroke="#6b4c22" stroke-width="2" stroke-dasharray="1.4 2.8" opacity="0.5"/>
+      <path d="M -220 0 A 220 39 0 0 0 220 0" stroke="#c39a5e" stroke-width="7" stroke-dasharray="1.9 2.6" opacity="0.9"/>
+    </g>
   </g>
 </svg>
