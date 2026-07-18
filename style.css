@@ -439,9 +439,11 @@ button, input {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 .match-term {
   flex: 0 0 40%;
+  min-width: 0;
   background: var(--gentle-bg);
   border-radius: 12px;
   padding: 12px;
@@ -451,6 +453,8 @@ button, input {
 }
 .match-select {
   flex: 1;
+  min-width: 0;
+  max-width: 100%;
   border: 3px solid var(--gentle-bg);
   background: var(--surface);
   border-radius: 12px;
@@ -491,7 +495,7 @@ button, input {
 .feedback-popup {
   position: fixed;
   left: 50%;
-  top: 22%;
+  bottom: 5%;
   transform: translate(-50%, 0);
   z-index: 50;
   padding: 16px 26px;

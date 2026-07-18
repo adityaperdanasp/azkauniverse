@@ -566,6 +566,7 @@ let brainRestTimer = null;
 function showBrainRest(onDone) {
   const screen = $("screen-brain-rest");
   screen.classList.add("active");
+  playMeow();
 
   const finish = () => {
     clearTimeout(brainRestTimer);
@@ -576,6 +577,39 @@ function showBrainRest(onDone) {
 
   brainRestTimer = setTimeout(finish, 10000);
   $("btn-skip-rest").onclick = finish;
+}
+
+// Synthesizes a cute "meow" with the Web Audio API (pitch rises then falls,
+// like a real meow's contour) -- no external audio file needed.
+let meowAudioCtx = null;
+function playMeow() {
+  try {
+    meowAudioCtx = meowAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = meowAudioCtx;
+    if (ctx.state === "suspended") ctx.resume();
+
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sawtooth";
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    // Pitch contour: starts mid, rises ("me-"), then falls ("-ow").
+    osc.frequency.setValueAtTime(520, now);
+    osc.frequency.linearRampToValueAtTime(760, now + 0.12);
+    osc.frequency.linearRampToValueAtTime(340, now + 0.42);
+
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(0.09, now + 0.05);
+    gain.gain.linearRampToValueAtTime(0.07, now + 0.25);
+    gain.gain.linearRampToValueAtTime(0, now + 0.48);
+
+    osc.start(now);
+    osc.stop(now + 0.5);
+  } catch (e) {
+    // Web Audio unsupported or blocked -- silently skip, the visual cats are enough.
+  }
 }
 
 /* =================================================================
