@@ -60,6 +60,8 @@ const BURST_EMOJI = ["✨", "⭐", "🎉", "🌟", "💫"];
 
 const QUESTION_DELAY_MS = 1500; // pause after answering before advancing
 
+const QUESTIONS_PER_ROUND = 5; // random subset of each topic's bank shown per play
+
 /* =================================================================
    2. STATE & PERSISTENCE
    ================================================================= */
@@ -286,11 +288,11 @@ function startLevel(levelId, mode) {
   state.levelIndex = levelIndexOf(levelId);
 
   const bank = questionsData.levels[state.levelIndex].questions;
-  // Solo: freshly shuffled every play. Multiplayer: shuffled the same way on
-  // both devices (seeded by the pairing code) so racers see identical questions.
-  state.questions = mode === "multiplayer"
-    ? seededShuffle(bank, state.mp.code)
-    : shuffle(bank);
+  // Solo: a fresh random subset every play, so replaying doesn't feel like
+  // memorization. Multiplayer: shuffled the same way on both devices (seeded
+  // by the pairing code) so racers still see the identical 5 questions.
+  const shuffled = mode === "multiplayer" ? seededShuffle(bank, state.mp.code) : shuffle(bank);
+  state.questions = shuffled.slice(0, Math.min(QUESTIONS_PER_ROUND, shuffled.length));
   state.qIndex = 0;
   state.correctCount = 0;
   state.locked = false;
