@@ -61,6 +61,33 @@
           "type": "flashcard",
           "front": "What are stars mostly made of?",
           "back": "Hydrogen and helium gas!"
+        },
+        {
+          "type": "mc",
+          "question": "What is the name of the gas cloud that forms when a red giant's outer layers drift into space?",
+          "options": ["Planetary nebula", "Solar nebula", "Supernova remnant", "Protostar"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Stars are pulled together by _____, which increases pressure and causes protostars to heat up.",
+          "answer": "gravity",
+          "acceptable": ["gravity"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each term to its meaning.",
+          "pairs": [
+            { "term": "Red supergiant", "match": "What a star much more massive than the Sun becomes" },
+            { "term": "Iron", "match": "The heaviest element normal fusion inside a star can make" },
+            { "term": "Elements heavier than iron", "match": "Only created during a supernova explosion" },
+            { "term": "Nuclear fusion", "match": "Hydrogen nuclei joining together to form helium, releasing energy" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Why does a white dwarf end up smaller than the red giant it came from?",
+          "back": "Because the red giant's outer layers drift away into space as a planetary nebula, leaving behind just the small, hot core!"
         }
       ]
     },
@@ -123,6 +150,33 @@
           "type": "flashcard",
           "front": "Where do electrons live in an atom?",
           "back": "In a cloud that zips around the nucleus!"
+        },
+        {
+          "type": "mc",
+          "question": "What force holds the protons and neutrons tightly together in the nucleus?",
+          "options": ["Electromagnetic force", "Gravity", "Magnetism only", "Wind"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The element symbol for lead is Pb, taken from its old Latin name '_____'.",
+          "answer": "plumbum",
+          "acceptable": ["plumbum"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each term to its meaning.",
+          "pairs": [
+            { "term": "Element symbol", "match": "Usually the first letter (or first two letters) of an element's name" },
+            { "term": "Quantum mechanics", "match": "The study of atoms and even tinier particles" },
+            { "term": "Electron cloud", "match": "The area around the nucleus where electrons zip around" },
+            { "term": "Neutrons", "match": "Found by subtracting the atomic number from the mass number" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "If an atom has an atomic number of 6 and a mass number of 12, how many neutrons does it have?",
+          "back": "6 neutrons! (Mass number 12 minus atomic number 6 = 6 neutrons)"
         }
       ]
     },
@@ -185,6 +239,33 @@
           "type": "flashcard",
           "front": "Does the Sun really move across the sky?",
           "back": "No! It only looks that way because Earth is rotating."
+        },
+        {
+          "type": "mc",
+          "question": "Which direction does the Sun appear to rise?",
+          "options": ["East", "West", "North", "South"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The curved path Earth takes around the Sun is called its _____.",
+          "answer": "orbit",
+          "acceptable": ["orbit"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each term to its meaning.",
+          "pairs": [
+            { "term": "Polaris (North Star)", "match": "Located above the North Pole -- it barely seems to move" },
+            { "term": "Leap year", "match": "An extra day added because a year is really 365 1/4 days" },
+            { "term": "Orbit", "match": "The curved path Earth takes around the Sun" },
+            { "term": "Sunset direction", "match": "West" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Why do stars and the Sun both seem to rise in the East and set in the West?",
+          "back": "Because Earth spins from West to East on its axis, making everything in the sky appear to move the opposite way!"
         }
       ]
     },
@@ -247,6 +328,33 @@
           "type": "flashcard",
           "front": "What is a compass rose used for on a map?",
           "back": "It shows the four main directions -- North, South, East, and West!"
+        },
+        {
+          "type": "mc",
+          "question": "About what fraction of Earth's surface is covered by land?",
+          "options": ["About 1/4", "About 1/2", "About 3/4", "Almost all of it"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Because Earth has more water than land, it's nicknamed the '_____ Planet'.",
+          "answer": "blue",
+          "acceptable": ["blue"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each term to its meaning.",
+          "pairs": [
+            { "term": "Tropic of Cancer", "match": "A line north of the equator" },
+            { "term": "Tropic of Capricorn", "match": "A line south of the equator" },
+            { "term": "Northern Hemisphere", "match": "The top half of the Earth" },
+            { "term": "Southern Hemisphere", "match": "The bottom half of the Earth" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Why is Earth sometimes called the 'Blue Planet'?",
+          "back": "Because about three-quarters of its surface is covered by water -- rivers, seas, and oceans!"
         }
       ]
     },
@@ -309,6 +417,33 @@
           "type": "flashcard",
           "front": "Why do we use the 24-hour clock?",
           "back": "It avoids mixing up a.m. and p.m. by counting all 24 hours in a day, from 00:00 to 23:59!"
+        },
+        {
+          "type": "mc",
+          "question": "Which is longer: 1 hour and 10 minutes, or 80 minutes?",
+          "options": ["They are exactly the same", "80 minutes is longer", "1 hour 10 minutes is longer", "Cannot tell"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Another word for 'noon', or 12:00 in the middle of the day, is _____.",
+          "answer": "midday",
+          "acceptable": ["midday", "noon"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each time to its 24-hour clock equivalent.",
+          "pairs": [
+            { "term": "7:00 p.m.", "match": "19:00" },
+            { "term": "11:00 a.m.", "match": "11:00" },
+            { "term": "Midday", "match": "12:00" },
+            { "term": "Midnight", "match": "00:00" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "How many days are in the month of March?",
+          "back": "31 days!"
         }
       ]
     }
