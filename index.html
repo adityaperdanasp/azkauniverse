@@ -89,6 +89,38 @@
        SCREEN: Play — question rendering (Solo & Multiplayer share this)
        =============================================================== -->
   <section id="screen-play" class="screen">
+    <!-- Reactive planet mascot: idle blink by default, smiles on correct
+         answers, stays calm and soft on wrong ones (never harsh). -->
+    <div class="mascot" id="mascot" data-mood="idle">
+      <svg viewBox="0 0 100 100">
+        <defs>
+          <radialGradient id="mascotBody" cx="36%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#ffe9b8"/>
+            <stop offset="45%" stop-color="#ffc978"/>
+            <stop offset="100%" stop-color="#f0903f"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="50" cy="50" rx="47" ry="12" fill="none" stroke="#e8b76a" stroke-width="6" opacity="0.9" transform="rotate(-14 50 50)"/>
+        <circle cx="50" cy="50" r="33" fill="url(#mascotBody)"/>
+        <g class="mood-face mood-idle">
+          <circle class="eye" cx="38" cy="47" r="4" fill="#2b2b45"/>
+          <circle class="eye" cx="62" cy="47" r="4" fill="#2b2b45"/>
+          <path d="M 40 61 Q 50 67 60 61" stroke="#2b2b45" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </g>
+        <g class="mood-face mood-happy">
+          <path d="M 32 47 Q 38 40 44 47" stroke="#2b2b45" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+          <path d="M 56 47 Q 62 40 68 47" stroke="#2b2b45" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+          <path d="M 36 59 Q 50 73 64 59" stroke="#2b2b45" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+        </g>
+        <g class="mood-face mood-soft">
+          <circle cx="38" cy="48" r="3.6" fill="#2b2b45"/>
+          <circle cx="62" cy="48" r="3.6" fill="#2b2b45"/>
+          <path d="M 42 62 Q 50 59 58 62" stroke="#2b2b45" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </g>
+        <ellipse cx="50" cy="50" rx="47" ry="12" fill="none" stroke="#e8b76a" stroke-width="6" opacity="0.55" transform="rotate(-14 50 50)" style="mix-blend-mode: multiply;"/>
+      </svg>
+    </div>
+
     <div class="play-header">
       <div class="level-chip"><span id="play-level-emoji">⭐</span> <span id="play-level-name">Level</span></div>
       <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
@@ -112,7 +144,8 @@
     <div id="question-stage" class="question-stage"></div>
 
     <div id="feedback-popup" class="feedback-popup hidden">
-      <span id="feedback-text"></span>
+      <div id="feedback-text"></div>
+      <div id="fun-fact-text" class="fun-fact-line"></div>
     </div>
   </section>
 

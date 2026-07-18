@@ -209,6 +209,16 @@
           "front": "True or false: fusion still happens inside a neutron star.",
           "back": "False! Fusion does not occur once a star has collapsed into a neutron star -- that stage is long over."
         }
+      ],
+      "funFacts": [
+        "Stars are made mostly of hydrogen and helium gas.",
+        "The Sun is a main sequence star -- the most stable stage of a star's life.",
+        "All naturally occurring elements up to iron are made by fusion inside stars.",
+        "Elements heavier than iron, like copper, can only be made in a supernova explosion.",
+        "A neutron star packs an incredible amount of mass into a tiny, super-dense core.",
+        "Once a star becomes a black hole, gravity is so strong that not even light can escape.",
+        "The bigger a star is, the faster it burns through its hydrogen fuel.",
+        "A white dwarf's leftover energy is squeezed into a tiny area, making it extremely hot."
       ]
     },
     {
@@ -418,6 +428,16 @@
           "answer": "mass",
           "acceptable": ["mass"]
         }
+      ],
+      "funFacts": [
+        "The word 'atom' comes from the Greek 'atomos', meaning something that cannot be divided.",
+        "Atoms are so small that no microscope today is powerful enough to see one directly.",
+        "In a neutral atom, the number of electrons always equals the number of protons.",
+        "The periodic table arranges elements by atomic number, not by name.",
+        "Lead's symbol is Pb, from its old Latin name 'plumbum'.",
+        "The electromagnetic force is strong enough to hold protons together in the nucleus, even though they repel each other.",
+        "Quantum mechanics is the science of studying particles even tinier than atoms.",
+        "A vertical column on the periodic table is called a group; a horizontal row is called a period."
       ]
     },
     {
@@ -627,6 +647,16 @@
           "answer": "phases",
           "acceptable": ["phases"]
         }
+      ],
+      "funFacts": [
+        "Earth rotates once every 24 hours -- that's one full day and night.",
+        "It takes Earth about 365 and a quarter days to orbit the Sun, which is why we add a leap day every 4 years.",
+        "Polaris, the North Star, barely seems to move because it sits almost directly above the North Pole.",
+        "The Moon goes through 8 different phases, from new moon to full moon and back again.",
+        "Seasons happen because Earth is tilted on its axis, not because Earth gets closer to or farther from the Sun.",
+        "The Sun doesn't actually move across the sky -- Earth's rotation just makes it look that way.",
+        "Earth spins from west to east, which is why the Sun appears to rise in the east.",
+        "Revolving means orbiting around something, like Earth around the Sun -- not moving up and down!"
       ]
     },
     {
@@ -836,6 +866,16 @@
           "answer": "life",
           "acceptable": ["life"]
         }
+      ],
+      "funFacts": [
+        "Earth is often called the 'Blue Planet' because about three-quarters of it is covered in water.",
+        "The equator is an imaginary line at 0 degrees latitude that circles the middle of the Earth.",
+        "The Prime Meridian sits at 0 degrees longitude and crosses the equator in the Atlantic Ocean.",
+        "Lines of latitude run east-west; lines of longitude run north-south, pole to pole.",
+        "A compass rose on a map shows the four main directions: North, South, East, and West.",
+        "The equator passes through both Africa and South America.",
+        "Australia is the only continent that lies completely within the Southern Hemisphere.",
+        "A map's key, or legend, tells you exactly what each symbol on the map means."
       ]
     },
     {
@@ -1045,6 +1085,16 @@
           "answer": "days",
           "acceptable": ["days"]
         }
+      ],
+      "funFacts": [
+        "The 24-hour clock avoids mixing up a.m. and p.m. by counting every hour of the day, from 00:00 to 23:59.",
+        "To change a p.m. time into 24-hour time, just add 12 to the hour.",
+        "Noon and midday both mean the same thing: 12:00 in the middle of the day.",
+        "Midnight is 00:00 on the 24-hour clock -- the very start of a new day.",
+        "1 hour and 10 minutes is actually 70 minutes, so 80 minutes is a bit longer!",
+        "March has 31 days, just like January, May, July, August, October, and December.",
+        "An analogue clock uses moving hands, while a digital clock displays time using numbers.",
+        "10 weeks and 2 days adds up to exactly 72 days."
       ]
     }
   ]

@@ -203,7 +203,10 @@ function showFeedback(isCorrect) {
   const popup = $("feedback-popup");
   popup.className = "feedback-popup " + (isCorrect ? "correct" : "wrong");
   $("feedback-text").textContent = (isCorrect ? "✅ " : "💙 ") + phrase;
+  showFunFact();
   popup.classList.remove("hidden");
+
+  setMascotMood(isCorrect ? "happy" : "soft", isCorrect ? "pop" : "soft-nudge");
 
   if (isCorrect) spawnBurst();
 
@@ -320,6 +323,7 @@ function renderQuestion() {
   const q = state.questions[state.qIndex];
   $("q-index").textContent = state.qIndex + 1;
   $("progress-fill").style.width = `${(state.qIndex / state.questions.length) * 100}%`;
+  setMascotMood("idle");
 
   const stage = $("question-stage");
   stage.innerHTML = "";
@@ -328,6 +332,37 @@ function renderQuestion() {
   else if (q.type === "fill") renderFill(stage, q);
   else if (q.type === "match") renderMatch(stage, q);
   else if (q.type === "flashcard") renderFlashcard(stage, q);
+}
+
+// Swaps the reactive planet mascot's face. `nudge` briefly plays a pop
+// (correct) or gentle nudge (wrong) animation on top of its idle bob.
+function setMascotMood(mood, nudge) {
+  const el = $("mascot");
+  if (!el) return;
+  el.dataset.mood = mood;
+  el.classList.remove("pop", "soft-nudge");
+  if (nudge) {
+    void el.offsetWidth; // restart animation even if the same class was just used
+    el.classList.add(nudge);
+  }
+}
+
+// Picks a random fun fact for the current level, avoiding an immediate repeat.
+let lastFunFactIndex = -1;
+function showFunFact() {
+  const level = questionsData.levels[state.levelIndex];
+  const facts = level.funFacts || [];
+  const target = $("fun-fact-text");
+  if (!facts.length) {
+    target.textContent = "";
+    return;
+  }
+  let idx = Math.floor(Math.random() * facts.length);
+  if (facts.length > 1) {
+    while (idx === lastFunFactIndex) idx = Math.floor(Math.random() * facts.length);
+  }
+  lastFunFactIndex = idx;
+  target.textContent = "💡 " + facts[idx];
 }
 
 function handleAnswer(isCorrect) {
