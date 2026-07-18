@@ -582,31 +582,47 @@ function showBrainRest(onDone) {
 // Synthesizes a cute "meow" with the Web Audio API (pitch rises then falls,
 // like a real meow's contour) -- no external audio file needed.
 let meowAudioCtx = null;
+
+// Browsers only allow AudioContext to actually make sound if it was created
+// (or resumed) during a real user gesture. Brain Rest fires from inside a
+// setTimeout chain, well after the gesture that triggered it, so the very
+// first tap/click anywhere in the app "unlocks" the context ahead of time.
+function unlockMeowAudio() {
+  meowAudioCtx = meowAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+  if (meowAudioCtx.state === "suspended") meowAudioCtx.resume();
+}
+document.addEventListener("pointerdown", unlockMeowAudio, { once: true });
+document.addEventListener("keydown", unlockMeowAudio, { once: true });
+
 function playMeow() {
   try {
-    meowAudioCtx = meowAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    unlockMeowAudio();
     const ctx = meowAudioCtx;
-    if (ctx.state === "suspended") ctx.resume();
 
     const now = ctx.currentTime;
     const osc = ctx.createOscillator();
+    const filter = ctx.createBiquadFilter();
     const gain = ctx.createGain();
     osc.type = "sawtooth";
-    osc.connect(gain);
+    filter.type = "lowpass";
+    filter.frequency.value = 2200;
+    osc.connect(filter);
+    filter.connect(gain);
     gain.connect(ctx.destination);
 
     // Pitch contour: starts mid, rises ("me-"), then falls ("-ow").
     osc.frequency.setValueAtTime(520, now);
     osc.frequency.linearRampToValueAtTime(760, now + 0.12);
-    osc.frequency.linearRampToValueAtTime(340, now + 0.42);
+    osc.frequency.linearRampToValueAtTime(340, now + 0.45);
 
+    // Loud enough to actually be heard over typical phone speaker volume.
     gain.gain.setValueAtTime(0, now);
-    gain.gain.linearRampToValueAtTime(0.09, now + 0.05);
-    gain.gain.linearRampToValueAtTime(0.07, now + 0.25);
-    gain.gain.linearRampToValueAtTime(0, now + 0.48);
+    gain.gain.linearRampToValueAtTime(0.55, now + 0.06);
+    gain.gain.linearRampToValueAtTime(0.4, now + 0.28);
+    gain.gain.linearRampToValueAtTime(0, now + 0.52);
 
     osc.start(now);
-    osc.stop(now + 0.5);
+    osc.stop(now + 0.55);
   } catch (e) {
     // Web Audio unsupported or blocked -- silently skip, the visual cats are enough.
   }
