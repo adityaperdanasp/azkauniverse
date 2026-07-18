@@ -484,6 +484,7 @@ button, input {
 }
 .match-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
   min-width: 0;
@@ -511,6 +512,23 @@ button, input {
   color: var(--text-on-light);
 }
 .match-row.correct .match-select { border-color: var(--success); }
+.match-row.wrong .match-select { border-color: var(--accent-pink); }
+
+.match-correct-reveal {
+  flex: 0 0 100%;
+  margin-left: calc(40% + 10px);
+  color: #1b7a43;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+
+.fill-correct-reveal {
+  margin: 12px 0 0;
+  color: #1b7a43;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+}
 
 .flashcard {
   min-height: 200px;

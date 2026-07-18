@@ -195,7 +195,8 @@ function speak(text) {
 /* =================================================================
    Feedback popup: celebratory (green) or calm (blue), + tiny burst
    ================================================================= */
-function showFeedback(isCorrect) {
+function showFeedback(isCorrect, delayMs) {
+  const delay = delayMs || QUESTION_DELAY_MS;
   const pool = isCorrect ? PRAISE_CORRECT : PRAISE_WRONG;
   const phrase = pool[Math.floor(Math.random() * pool.length)];
   speak(phrase);
@@ -211,7 +212,7 @@ function showFeedback(isCorrect) {
   if (isCorrect) spawnBurst();
 
   clearTimeout(showFeedback._t);
-  showFeedback._t = setTimeout(() => popup.classList.add("hidden"), QUESTION_DELAY_MS - 150);
+  showFeedback._t = setTimeout(() => popup.classList.add("hidden"), delay - 150);
 }
 
 function spawnBurst() {
@@ -365,12 +366,16 @@ function showFunFact() {
   target.textContent = "💡 " + facts[idx];
 }
 
-function handleAnswer(isCorrect) {
+// `delayMs` lets wrong answers linger longer than the default 1.5s so Azka
+// has time to read the revealed correct answer before the next question
+// loads: 5s for a wrong MC/fill, 10s for a wrong match (more to re-read).
+function handleAnswer(isCorrect, delayMs) {
   if (state.locked) return;
   state.locked = true;
   if (isCorrect) state.correctCount++;
 
-  showFeedback(isCorrect);
+  const delay = delayMs || QUESTION_DELAY_MS;
+  showFeedback(isCorrect, delay);
 
   if (state.mode === "multiplayer") {
     state.mp.myScore = state.correctCount;
@@ -386,7 +391,7 @@ function handleAnswer(isCorrect) {
     state.qIndex++;
     if (state.qIndex >= state.questions.length) finishLevel();
     else renderQuestion();
-  }, QUESTION_DELAY_MS);
+  }, delay);
 }
 
 function finishLevel() {
@@ -441,7 +446,9 @@ function renderMC(stage, q) {
         if (order[bi] === q.answer) b.classList.add("correct");
         else if (bi === displayIndex) b.classList.add("wrong");
       });
-      handleAnswer(isCorrect);
+      // Wrong answers keep the correct button highlighted green for 5s
+      // (instead of the usual 1.5s) so Azka has time to see the right one.
+      handleAnswer(isCorrect, isCorrect ? undefined : 5000);
     });
     grid.appendChild(btn);
   });
@@ -469,7 +476,16 @@ function renderFill(stage, q) {
     const isCorrect = acceptable.includes(given);
     input.disabled = true;
     submit.disabled = true;
-    handleAnswer(isCorrect);
+
+    if (!isCorrect) {
+      // Reveal the correct answer and hold this question on screen for 5s
+      // (instead of the usual 1.5s) so Azka has time to read it.
+      const reveal = document.createElement("p");
+      reveal.className = "fill-correct-reveal";
+      reveal.textContent = "✓ Correct answer: " + q.answer;
+      wrap.appendChild(reveal);
+    }
+    handleAnswer(isCorrect, isCorrect ? undefined : 5000);
   };
   submit.addEventListener("click", check);
   input.addEventListener("keydown", e => { if (e.key === "Enter") check(); });
@@ -541,21 +557,29 @@ function renderMatch(stage, q) {
   $("match-submit").addEventListener("click", () => {
     if (state.locked) return;
     const rows = [...grid.querySelectorAll(".match-row")];
-    let allFilled = true;
+    const allFilled = rows.every(row => row.querySelector("select").value);
+    if (!allFilled) return; // let them keep filling in the remaining rows
+
     let allCorrect = true;
     rows.forEach(row => {
       const select = row.querySelector("select");
-      if (!select.value) allFilled = false;
       const rowCorrect = select.value === select.dataset.correct;
       if (!rowCorrect) allCorrect = false;
       row.classList.toggle("correct", rowCorrect);
+      row.classList.toggle("wrong", !rowCorrect);
       select.disabled = true;
+
+      if (!rowCorrect) {
+        const reveal = document.createElement("div");
+        reveal.className = "match-correct-reveal";
+        reveal.textContent = "✓ " + select.dataset.correct;
+        row.appendChild(reveal);
+      }
     });
-    if (!allFilled) {
-      rows.forEach(row => row.querySelector("select").disabled = false);
-      return;
-    }
-    handleAnswer(allCorrect);
+
+    // Wrong pairs stay revealed for 10s (instead of the usual 1.5s) so
+    // Azka has time to read every correct match before moving on.
+    handleAnswer(allCorrect, allCorrect ? undefined : 10000);
   });
 }
 
