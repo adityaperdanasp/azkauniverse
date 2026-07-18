@@ -211,8 +211,12 @@ function showFeedback(isCorrect, delayMs) {
 
   if (isCorrect) spawnBurst();
 
+  // Correct: popup stays until right before the next question loads. Wrong:
+  // the question (and revealed correct answer) can stay up much longer, but
+  // the popup itself should only linger 2s so it doesn't sit there forever.
+  const hideAfter = isCorrect ? delay - 150 : Math.min(2000, delay - 150);
   clearTimeout(showFeedback._t);
-  showFeedback._t = setTimeout(() => popup.classList.add("hidden"), delay - 150);
+  showFeedback._t = setTimeout(() => popup.classList.add("hidden"), hideAfter);
 }
 
 function spawnBurst() {
@@ -368,7 +372,7 @@ function showFunFact() {
 
 // `delayMs` lets wrong answers linger longer than the default 1.5s so Azka
 // has time to read the revealed correct answer before the next question
-// loads: 5s for a wrong MC/fill, 10s for a wrong match (more to re-read).
+// loads: 5s for a wrong MC/fill, 7s for a wrong match (more to re-read).
 function handleAnswer(isCorrect, delayMs) {
   if (state.locked) return;
   state.locked = true;
@@ -577,9 +581,9 @@ function renderMatch(stage, q) {
       }
     });
 
-    // Wrong pairs stay revealed for 10s (instead of the usual 1.5s) so
+    // Wrong pairs stay revealed for 7s (instead of the usual 1.5s) so
     // Azka has time to read every correct match before moving on.
-    handleAnswer(allCorrect, allCorrect ? undefined : 10000);
+    handleAnswer(allCorrect, allCorrect ? undefined : 7000);
   });
 }
 

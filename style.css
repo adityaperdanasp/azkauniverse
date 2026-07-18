@@ -556,20 +556,18 @@ button, input {
 
 .stage-actions { margin-top: 20px; display: flex; justify-content: center; }
 
-/* Feedback popup (star burst / confetti) */
+/* Feedback popup (star burst / confetti) -- sits in normal document flow
+   right after the question card, so it's pushed below it and can never
+   overlap the question, no matter how tall the card gets. */
 .feedback-popup {
-  position: fixed;
-  left: 50%;
-  bottom: 10%;
-  transform: translate(-50%, 0);
-  z-index: 50;
+  position: relative;
+  margin: 16px auto 0;
   padding: 16px 26px;
   border-radius: 18px;
   font-weight: 700;
   font-size: 1.1rem;
   text-align: center;
-  max-width: 86%;
-  pointer-events: none;
+  max-width: 92%;
   animation: popIn 0.35s ease;
 }
 .feedback-popup.correct {
@@ -595,9 +593,9 @@ button, input {
 }
 
 @keyframes popIn {
-  0% { transform: translate(-50%, 10px) scale(0.7); opacity: 0; }
-  60% { transform: translate(-50%, -4px) scale(1.05); opacity: 1; }
-  100% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+  0% { transform: translateY(10px) scale(0.7); opacity: 0; }
+  60% { transform: translateY(-4px) scale(1.05); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 
 .burst {
