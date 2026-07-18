@@ -12,16 +12,21 @@
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
 
-    <!-- Sphere shading: light source upper-left, deep shadow lower-right -->
-    <radialGradient id="planetSphere" cx="36%" cy="30%" r="75%">
-      <stop offset="0%" stop-color="#ffe9b8"/>
-      <stop offset="35%" stop-color="#ffc978"/>
-      <stop offset="70%" stop-color="#f28c3d"/>
-      <stop offset="100%" stop-color="#c85f1f"/>
+    <!-- Saturn-emoji style banded surface -->
+    <linearGradient id="band1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e8dfa8"/>
+      <stop offset="100%" stop-color="#d8cc8a"/>
+    </linearGradient>
+
+    <!-- Sphere shading overlay: light source upper-left, deep shadow lower-right -->
+    <radialGradient id="sphereShade" cx="34%" cy="28%" r="80%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#5a4620" stop-opacity="0.45"/>
     </radialGradient>
 
     <radialGradient id="specular" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
 
@@ -42,6 +47,10 @@
       <stop offset="0%" stop-color="#2a1b6e" stop-opacity="0.22"/>
       <stop offset="100%" stop-color="#2a1b6e" stop-opacity="0"/>
     </radialGradient>
+
+    <clipPath id="planetClip">
+      <circle cx="0" cy="0" r="112"/>
+    </clipPath>
   </defs>
 
   <rect width="512" height="512" fill="url(#bg)"/>
@@ -65,21 +74,30 @@
     <!-- back half of ring (behind the planet) -->
     <path d="M -190 0 A 190 54 0 0 1 190 0" fill="none" stroke="url(#ringBack)" stroke-width="22" stroke-linecap="round"/>
 
-    <!-- planet sphere -->
-    <circle cx="0" cy="0" r="112" fill="url(#planetSphere)"/>
-    <circle cx="0" cy="0" r="112" fill="none" stroke="#a5501a" stroke-width="2" opacity="0.25"/>
-
-    <!-- craters, shaded for depth -->
-    <ellipse cx="-28" cy="34" rx="17" ry="12" fill="#c9701f" opacity="0.5"/>
-    <ellipse cx="-31" cy="30" rx="17" ry="12" fill="none" stroke="#ffd79a" stroke-width="1.5" opacity="0.4"/>
-    <ellipse cx="46" cy="-6" rx="12" ry="9" fill="#c9701f" opacity="0.45"/>
-    <ellipse cx="18" cy="52" rx="9" ry="7" fill="#c9701f" opacity="0.4"/>
+    <!-- planet sphere: Saturn-emoji style horizontal colour bands -->
+    <g clip-path="url(#planetClip)">
+      <circle cx="0" cy="0" r="112" fill="url(#band1)"/>
+      <rect x="-112" y="-112" width="224" height="26" fill="#efe6b6"/>
+      <rect x="-112" y="-84" width="224" height="16" fill="#c9b877"/>
+      <rect x="-112" y="-66" width="224" height="22" fill="#e6dca3"/>
+      <rect x="-112" y="-42" width="224" height="14" fill="#b7d0c8" opacity="0.75"/>
+      <rect x="-112" y="-26" width="224" height="20" fill="#ddd39a"/>
+      <rect x="-112" y="-4" width="224" height="16" fill="#c39a6b" opacity="0.55"/>
+      <rect x="-112" y="10" width="224" height="24" fill="#e9dfa9"/>
+      <rect x="-112" y="34" width="224" height="14" fill="#94a9ae" opacity="0.6"/>
+      <rect x="-112" y="46" width="224" height="24" fill="#d9cd8e"/>
+      <rect x="-112" y="68" width="224" height="20" fill="#c7bb7f"/>
+      <rect x="-112" y="86" width="224" height="26" fill="#b9ad72"/>
+      <ellipse cx="-8" cy="-2" rx="46" ry="9" fill="#c98a52" opacity="0.35"/>
+      <circle cx="0" cy="0" r="112" fill="url(#sphereShade)"/>
+    </g>
+    <circle cx="0" cy="0" r="112" fill="none" stroke="#8a723a" stroke-width="2" opacity="0.3"/>
 
     <!-- specular highlight -->
     <ellipse cx="-40" cy="-42" rx="34" ry="22" fill="url(#specular)"/>
 
     <!-- shadow the front ring casts onto the planet -->
-    <path d="M -112 6 A 190 40 0 0 0 112 6" fill="none" stroke="#7a3c10" stroke-width="14" opacity="0.28" stroke-linecap="round"/>
+    <path d="M -112 6 A 190 40 0 0 0 112 6" fill="none" stroke="#5a3d16" stroke-width="14" opacity="0.28" stroke-linecap="round"/>
 
     <!-- front half of ring (in front of the planet) -->
     <path d="M -190 0 A 190 54 0 0 0 190 0" fill="none" stroke="url(#ringFront)" stroke-width="24" stroke-linecap="round"/>
