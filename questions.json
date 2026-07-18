@@ -88,6 +88,126 @@
           "type": "flashcard",
           "front": "Why does a white dwarf end up smaller than the red giant it came from?",
           "back": "Because the red giant's outer layers drift away into space as a planetary nebula, leaving behind just the small, hot core!"
+        },
+        {
+          "type": "mc",
+          "question": "What does a star emit due to the nuclear fusion happening in its core?",
+          "options": ["Light and infrared radiation", "Only light", "Sound waves", "Radio waves only"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The earliest stage of a star's life, when a contracting cloud starts to heat up and glow, is called a _____.",
+          "answer": "protostar",
+          "acceptable": ["protostar"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each stage to what happens.",
+          "pairs": [
+            { "term": "Protostar", "match": "Gravity and pressure make the collapsing cloud heat up and glow" },
+            { "term": "Main sequence star", "match": "Hydrogen fuses into helium in a stable, balanced star" },
+            { "term": "Red giant", "match": "A Sun-sized star swells and cools as it runs low on hydrogen" },
+            { "term": "White dwarf", "match": "The small, hot leftover core after a red giant's outer layers drift away" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "What determines which path a star's life cycle takes -- red giant or red supergiant?",
+          "back": "Its size! Stars about the size of the Sun become red giants, while much bigger stars become red supergiants."
+        },
+        {
+          "type": "mc",
+          "question": "Which is true about the Sun?",
+          "options": ["It is a main sequence star", "It is a red giant", "It is a white dwarf", "It is a black hole"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The larger a star is, the _____ and brighter it will be.",
+          "answer": "hotter",
+          "acceptable": ["hotter"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each term to its meaning.",
+          "pairs": [
+            { "term": "Supernova", "match": "The explosion of a dying red supergiant" },
+            { "term": "Neutron star", "match": "A very dense core left behind after most supernovae" },
+            { "term": "Shockwave", "match": "What causes a red supergiant's core to explode" },
+            { "term": "Fusion", "match": "Does NOT occur once a star becomes a neutron star" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Why do bigger stars move through the main sequence stage faster than smaller stars?",
+          "back": "Because bigger stars burn through their hydrogen fuel faster -- the hotter and brighter they are, the quicker they use it up!"
+        },
+        {
+          "type": "mc",
+          "question": "What happens to a red giant's outer layers at the end of its life?",
+          "options": ["They're expelled into space as a planetary nebula", "They explode in a supernova", "They turn into a black hole", "They freeze solid"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "A white dwarf eventually cools and dims until it becomes a _____ dwarf, and finally a black dwarf.",
+          "answer": "brown",
+          "acceptable": ["brown"]
+        },
+        {
+          "type": "mc",
+          "question": "Which of these is the correct order for a star about the size of the Sun?",
+          "options": ["Nebula, protostar, main sequence, red giant, white dwarf, black dwarf", "Nebula, red giant, protostar, supernova", "Protostar, nebula, white dwarf, red giant", "Main sequence, nebula, protostar, black hole"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Fusion of nuclei up to the size of _____ happens inside a red supergiant before it runs out of fuel.",
+          "answer": "iron",
+          "acceptable": ["iron"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each object to how it forms.",
+          "pairs": [
+            { "term": "Planetary nebula", "match": "Gas cloud formed when a red giant's outer layers drift into space" },
+            { "term": "White dwarf", "match": "Leftover hot core after a low or medium mass star's outer layers escape" },
+            { "term": "Neutron star", "match": "Forms when most supernovae collapse" },
+            { "term": "Black hole", "match": "Forms when the largest supernovae collapse" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Iron has atomic number 26, and copper has atomic number 29. What does that tell us about how each one formed?",
+          "back": "Iron (26) could have been made by normal fusion inside a star, but copper (29) is heavier than iron, so it could only have been made in a supernova!"
+        },
+        {
+          "type": "mc",
+          "question": "What must happen before a cloud of gas and dust can become a protostar?",
+          "options": ["Gravity pulls it together, increasing pressure and heat", "It must explode first", "It must cool down completely", "It must lose all its hydrogen"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Once a star has 'turned on' through nuclear fusion, it is known as a _____ _____ star.",
+          "answer": "main sequence",
+          "acceptable": ["main sequence"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each star type to its fate.",
+          "pairs": [
+            { "term": "Stars about the size of the Sun", "match": "Become a red giant, then a white dwarf" },
+            { "term": "Stars much more massive than the Sun", "match": "Become a red supergiant, then explode in a supernova" },
+            { "term": "Most supernovae", "match": "Collapse into a neutron star" },
+            { "term": "The most massive supernovae", "match": "Collapse into a black hole" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "True or false: fusion still happens inside a neutron star.",
+          "back": "False! Fusion does not occur once a star has collapsed into a neutron star -- that stage is long over."
         }
       ]
     },
@@ -177,6 +297,126 @@
           "type": "flashcard",
           "front": "If an atom has an atomic number of 6 and a mass number of 12, how many neutrons does it have?",
           "back": "6 neutrons! (Mass number 12 minus atomic number 6 = 6 neutrons)"
+        },
+        {
+          "type": "mc",
+          "question": "What are atoms the building blocks of?",
+          "options": ["Molecules, which combine to make everything", "Only stars", "Only liquids", "Nothing -- they are the smallest thing that exists"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The Ancient Greek word 'atomos' means something that cannot be _____ any further.",
+          "answer": "divided",
+          "acceptable": ["divided"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each particle to its charge.",
+          "pairs": [
+            { "term": "Proton", "match": "Positive charge" },
+            { "term": "Neutron", "match": "No charge (neutral)" },
+            { "term": "Electron", "match": "Negative charge" },
+            { "term": "Nucleus", "match": "Made of protons and neutrons" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Why can't we actually see an individual atom, even with a microscope?",
+          "back": "Atoms are far too small -- there are no microscopes powerful enough yet, though scientists have other ways to detect and study them!"
+        },
+        {
+          "type": "mc",
+          "question": "What decides which chemical element an atom is?",
+          "options": ["Its number of protons", "Its number of electrons", "Its color", "Its temperature"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The number of _____ in an atom defines its chemical properties, like melting and boiling point.",
+          "answer": "electrons",
+          "acceptable": ["electrons"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each periodic table term to its meaning.",
+          "pairs": [
+            { "term": "Group", "match": "A vertical column of elements with similar properties" },
+            { "term": "Period", "match": "A horizontal row of elements on the table" },
+            { "term": "Atomic number", "match": "The number of protons in an atom" },
+            { "term": "Mass number", "match": "The total number of protons and neutrons" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "In a neutral atom, how does the number of electrons compare to the number of protons?",
+          "back": "They're equal! That's what keeps a neutral atom's overall charge balanced."
+        },
+        {
+          "type": "mc",
+          "question": "How is an element's symbol usually written?",
+          "options": ["First letter capital, second letter (if any) lowercase", "All letters capital", "All letters lowercase", "Numbers only"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The study of atoms and even tinier particles is called quantum _____.",
+          "answer": "mechanics",
+          "acceptable": ["mechanics"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each element symbol to its element.",
+          "pairs": [
+            { "term": "C", "match": "Carbon" },
+            { "term": "Ne", "match": "Neon" },
+            { "term": "K", "match": "Potassium" },
+            { "term": "Pb", "match": "Lead" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Why is 'Co' different from 'CO' on the periodic table?",
+          "back": "'Co' (capital-lowercase) is the single element cobalt, while 'CO' (two capitals) means two different elements -- carbon and oxygen -- combined!"
+        },
+        {
+          "type": "mc",
+          "question": "What can atoms be classified into, based on the article 'An Atom Apart'?",
+          "options": ["Elements, like oxygen, carbon, or hydrogen", "Colors only", "Sizes only", "Planets"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Carbon's element symbol is C, its atomic number is 6, and its mass number is _____.",
+          "answer": "12",
+          "acceptable": ["12", "twelve"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each part of an atom to where it's found.",
+          "pairs": [
+            { "term": "Protons", "match": "In the nucleus" },
+            { "term": "Neutrons", "match": "In the nucleus" },
+            { "term": "Electrons", "match": "In a cloud around the nucleus" },
+            { "term": "Nucleus", "match": "The core, or center, of the atom" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "What holds protons and neutrons so tightly together in the nucleus, even though protons repel each other?",
+          "back": "The electromagnetic force -- it's strong enough to overcome the protons' repulsion and keep the nucleus together!"
+        },
+        {
+          "type": "mc",
+          "question": "If you know an element's atomic number, what else can you figure out?",
+          "options": ["Its number of electrons (they're equal in a neutral atom)", "Its exact color", "Its exact temperature", "Nothing else"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "To find the number of neutrons in an atom, subtract the atomic number from the _____ number.",
+          "answer": "mass",
+          "acceptable": ["mass"]
         }
       ]
     },
@@ -266,6 +506,126 @@
           "type": "flashcard",
           "front": "Why do stars and the Sun both seem to rise in the East and set in the West?",
           "back": "Because Earth spins from West to East on its axis, making everything in the sky appear to move the opposite way!"
+        },
+        {
+          "type": "mc",
+          "question": "True or false: the side of Earth NOT reached by the Sun's rays experiences daytime.",
+          "options": ["False -- that side experiences nighttime", "True", "Only during winter", "Only at the equator"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Earth's movement through _____ affects life on Earth, including causing day and night.",
+          "answer": "space",
+          "acceptable": ["space"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each moon phase to its description.",
+          "pairs": [
+            { "term": "First-quarter moon", "match": "Half the moon is lit, right after waxing crescent" },
+            { "term": "Third-quarter moon", "match": "Half the moon is lit, after waning gibbous" },
+            { "term": "Waning crescent", "match": "A thin sliver that is shrinking, right before new moon" },
+            { "term": "New moon", "match": "The moon looks completely dark" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Why does it get warmer or colder depending on the season?",
+          "back": "Because Earth is tilted on its axis -- when your part of the planet is closer to the Sun, you get summer; when it's farther away, you get winter!"
+        },
+        {
+          "type": "mc",
+          "question": "True or false: it takes Earth 369 days to orbit the Sun.",
+          "options": ["False -- it takes about 365 days", "True", "It takes 269 days", "It takes 30 days"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "A year with one extra day added is called a _____ year.",
+          "answer": "leap",
+          "acceptable": ["leap"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each term to its correct meaning.",
+          "pairs": [
+            { "term": "Revolving", "match": "Moving in a path around something, like Earth around the Sun" },
+            { "term": "Rotating", "match": "Spinning in place on an axis" },
+            { "term": "Axis", "match": "An imaginary line through the North and South Poles" },
+            { "term": "Orbit", "match": "The curved path a planet takes around the Sun" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "If you stand in place and spin around in a circle, what do you notice -- and how does this explain why the Sun seems to move across the sky?",
+          "back": "Objects appear to move around you, even though you're the one moving! The same thing happens with Earth -- it's rotating, not the Sun actually moving."
+        },
+        {
+          "type": "mc",
+          "question": "Why do some groups of stars seem to circle around Polaris, the North Star, at night?",
+          "options": ["Because Earth rotates on its axis once each day", "Because Polaris is moving", "Because stars orbit the moon", "Because of leap years"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Polaris doesn't seem to move much in the night sky because it is located above the _____ Pole.",
+          "answer": "North",
+          "acceptable": ["north"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each statement to True or False.",
+          "pairs": [
+            { "term": "There are four seasons: Spring, Summer, Autumn, and Winter", "match": "True" },
+            { "term": "The occurrence of day and night is caused by Earth's rotation", "match": "True" },
+            { "term": "Revolving means to move up and down", "match": "False" },
+            { "term": "It takes the Sun 24 hours to rotate around Earth", "match": "False -- Earth rotates, not the Sun" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Why does the Moon seem to rise and set at different times and places in the sky, just like the Sun?",
+          "back": "Because the Moon is orbiting Earth while Earth spins -- the combination makes it appear to rise and set!"
+        },
+        {
+          "type": "mc",
+          "question": "What is the imaginary line that Earth spins around, running through the North and South Poles?",
+          "options": ["Its axis", "The equator", "Its orbit", "The horizon"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "One full Earth _____ takes about 365 and a quarter days, which is why we add a leap day every 4 years.",
+          "answer": "revolution",
+          "acceptable": ["revolution", "orbit"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each cause to its effect.",
+          "pairs": [
+            { "term": "Earth rotating on its axis", "match": "Day and night" },
+            { "term": "Earth revolving around the Sun", "match": "One year passing" },
+            { "term": "Earth's tilt as it revolves", "match": "The four seasons" },
+            { "term": "The Moon orbiting Earth", "match": "The changing moon phases" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "How long does one full Earth rotation take, and what does it give us?",
+          "back": "About 24 hours -- one full rotation gives us one day and one night!"
+        },
+        {
+          "type": "mc",
+          "question": "Earth's axis is an invisible line that intersects Earth through both the North and _____ Poles.",
+          "options": ["South", "East", "West", "Central"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The different shapes the Moon appears to have in the sky are called moon _____.",
+          "answer": "phases",
+          "acceptable": ["phases"]
         }
       ]
     },
@@ -355,6 +715,126 @@
           "type": "flashcard",
           "front": "Why is Earth sometimes called the 'Blue Planet'?",
           "back": "Because about three-quarters of its surface is covered by water -- rivers, seas, and oceans!"
+        },
+        {
+          "type": "mc",
+          "question": "Which planet is Earth, counting outward from the Sun?",
+          "options": ["The third planet", "The first planet", "The fifth planet", "The last planet"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The equator sits at 0 degrees _____.",
+          "answer": "latitude",
+          "acceptable": ["latitude"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each term to its meaning.",
+          "pairs": [
+            { "term": "International Date Line", "match": "Roughly on the opposite side of the globe from the Prime Meridian" },
+            { "term": "Prime Meridian", "match": "The line of longitude at 0 degrees" },
+            { "term": "Equator", "match": "The line of latitude at 0 degrees" },
+            { "term": "Hemisphere", "match": "One half of the Earth" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "What continents does the equator pass through?",
+          "back": "Africa and South America!"
+        },
+        {
+          "type": "mc",
+          "question": "Which continent lies completely within the Southern Hemisphere?",
+          "options": ["Australia", "North America", "Asia", "Europe"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "A map's key or _____ explains what each symbol on the map represents.",
+          "answer": "legend",
+          "acceptable": ["legend", "key"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each direction to its position on a standard map.",
+          "pairs": [
+            { "term": "North", "match": "Usually at the top" },
+            { "term": "South", "match": "Usually at the bottom" },
+            { "term": "East", "match": "Usually on the right" },
+            { "term": "West", "match": "Usually on the left" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Why do maps use symbols and a key?",
+          "back": "Symbols make maps easier to read at a glance, and the key tells you exactly what each symbol means!"
+        },
+        {
+          "type": "mc",
+          "question": "In which ocean does the Prime Meridian cross the equator?",
+          "options": ["The Atlantic Ocean", "The Pacific Ocean", "The Indian Ocean", "The Arctic Ocean"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Longitude lines run from the North Pole to the South Pole and measure distance east and _____.",
+          "answer": "west",
+          "acceptable": ["west"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each term to its meaning.",
+          "pairs": [
+            { "term": "North Pole", "match": "The very top of the Northern Hemisphere" },
+            { "term": "South Pole", "match": "The very bottom of the Southern Hemisphere" },
+            { "term": "Equator", "match": "The dividing line between the two hemispheres" },
+            { "term": "Compass rose", "match": "A map symbol showing N, S, E, and W" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "What are the two main sets of imaginary lines used to locate any place on Earth's globe?",
+          "back": "Lines of latitude (running east-west) and lines of longitude (running north-south)!"
+        },
+        {
+          "type": "mc",
+          "question": "What does a compass rose show on a map?",
+          "options": ["The four main directions: North, South, East, West", "The distance between two cities", "The population of a country", "The temperature"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "The imaginary line dividing Earth into Eastern and Western halves is called the Prime _____.",
+          "answer": "meridian",
+          "acceptable": ["meridian"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each term to its meaning.",
+          "pairs": [
+            { "term": "Latitude", "match": "Lines running east-west, parallel to the equator" },
+            { "term": "Longitude", "match": "Lines running north-south, pole to pole" },
+            { "term": "Northern Hemisphere", "match": "The half of Earth above the equator" },
+            { "term": "Southern Hemisphere", "match": "The half of Earth below the equator" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Why is Earth sometimes described as looking like a 'ball covered with white clouds' from space?",
+          "back": "Because from space you can see swirling white clouds over the brown land and blue oceans below!"
+        },
+        {
+          "type": "mc",
+          "question": "About how much of Earth's surface has oxygen present on it?",
+          "options": ["Its entire surface", "Only over the oceans", "Only over the land", "Only at the poles"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Earth is often called the 'Blue Planet' and is the only known planet with _____.",
+          "answer": "life",
+          "acceptable": ["life"]
         }
       ]
     },
@@ -421,7 +901,7 @@
         {
           "type": "mc",
           "question": "Which is longer: 1 hour and 10 minutes, or 80 minutes?",
-          "options": ["They are exactly the same", "80 minutes is longer", "1 hour 10 minutes is longer", "Cannot tell"],
+          "options": ["80 minutes is longer", "They are exactly the same", "1 hour 10 minutes is longer", "Cannot tell"],
           "answer": 0
         },
         {
@@ -444,6 +924,126 @@
           "type": "flashcard",
           "front": "How many days are in the month of March?",
           "back": "31 days!"
+        },
+        {
+          "type": "mc",
+          "question": "What is 08:40 p.m. written as in 24-hour time?",
+          "options": ["20:40", "08:40", "18:40", "10:40"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "14:15 in 24-hour time is the same as _____:15 p.m.",
+          "answer": "2",
+          "acceptable": ["2", "02"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each 12-hour time to its 24-hour clock equivalent.",
+          "pairs": [
+            { "term": "8:20 p.m.", "match": "20:20" },
+            { "term": "6:40 p.m.", "match": "18:40" },
+            { "term": "2:15 p.m.", "match": "14:15" },
+            { "term": "11:00 a.m.", "match": "11:00" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "'Seven minutes to eight at night' -- what time is that in 24-hour clock format?",
+          "back": "19:53! Seven minutes to eight is 7:53, and 'at night' means p.m., so add 12 to get 19:53."
+        },
+        {
+          "type": "mc",
+          "question": "If it is 10 weeks and 2 days until Christmas, how many days is that?",
+          "options": ["72 days", "70 days", "82 days", "12 days"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "Your bus leaves at 9:30 a.m. and you must arrive 20 minutes early. What time must you arrive at school?",
+          "answer": "9:10",
+          "acceptable": ["9:10", "9:10am", "9:10 a.m."]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each activity time to how long it takes.",
+          "pairs": [
+            { "term": "5 minutes and 12 seconds", "match": "312 seconds" },
+            { "term": "1 hour and 10 minutes", "match": "70 minutes" },
+            { "term": "80 minutes", "match": "1 hour and 20 minutes" },
+            { "term": "10 weeks and 2 days", "match": "72 days" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "You must be at school 20 minutes before the 9:30 a.m. bus, and it takes 15 minutes to walk from your house. What time should you leave home?",
+          "back": "8:55 a.m.! You need to be at school by 9:10 a.m., and walking there takes 15 minutes, so leave at 8:55 a.m."
+        },
+        {
+          "type": "mc",
+          "question": "A bike race starts at 11:30 a.m. Your friend crosses the finish line at 1:10 p.m. How long were they cycling for?",
+          "options": ["1 hour 40 minutes", "1 hour 10 minutes", "2 hours", "40 minutes"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "How many days are in the month of March? _____ days.",
+          "answer": "31",
+          "acceptable": ["31"]
+        },
+        {
+          "type": "match",
+          "prompt": "Using the March 2020 calendar (March 1 is a Sunday), match each date to its day of the week.",
+          "pairs": [
+            { "term": "March 20", "match": "Friday" },
+            { "term": "March 18", "match": "Wednesday" },
+            { "term": "March 1", "match": "Sunday" },
+            { "term": "March 31", "match": "Tuesday" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "How many Mondays are in March 2020, based on the calendar (March 1 is a Sunday)?",
+          "back": "5 Mondays! They fall on March 2, 9, 16, 23, and 30."
+        },
+        {
+          "type": "mc",
+          "question": "How many Fridays are in March 2020, based on the calendar (March 1 is a Sunday)?",
+          "options": ["4 Fridays", "5 Fridays", "3 Fridays", "6 Fridays"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "An analogue clock shows time using moving _____, while a digital clock shows time using numbers.",
+          "answer": "hands",
+          "acceptable": ["hands"]
+        },
+        {
+          "type": "match",
+          "prompt": "Match each clock time description to what it means.",
+          "pairs": [
+            { "term": "a.m.", "match": "Any time before noon" },
+            { "term": "p.m.", "match": "Any time after noon" },
+            { "term": "Noon / midday", "match": "12:00 in the middle of the day" },
+            { "term": "Midnight", "match": "00:00 in the middle of the night" }
+          ]
+        },
+        {
+          "type": "flashcard",
+          "front": "Why might someone prefer a lunch break of 80 minutes over 1 hour and 10 minutes?",
+          "back": "Because 80 minutes is actually longer! 1 hour 10 minutes is only 70 minutes, so 80 minutes gives you 10 extra minutes."
+        },
+        {
+          "type": "mc",
+          "question": "To change a p.m. time into 24-hour time, what do you do?",
+          "options": ["Add 12 to the hour", "Subtract 12 from the hour", "Multiply the hour by 2", "Do nothing, it's already correct"],
+          "answer": 0
+        },
+        {
+          "type": "fill",
+          "question": "10 weeks and 2 days is the same as 72 _____.",
+          "answer": "days",
+          "acceptable": ["days"]
         }
       ]
     }

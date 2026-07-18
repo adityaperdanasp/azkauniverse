@@ -292,7 +292,7 @@ function startLevel(levelId, mode) {
   // memorization. Multiplayer: shuffled the same way on both devices (seeded
   // by the pairing code) so racers still see the identical 5 questions.
   const shuffled = mode === "multiplayer" ? seededShuffle(bank, state.mp.code) : shuffle(bank);
-  state.questions = shuffled.slice(0, Math.min(QUESTIONS_PER_ROUND, shuffled.length));
+  state.questions = pickRoundAvoidingRepeatTypes(shuffled, QUESTIONS_PER_ROUND);
   state.qIndex = 0;
   state.correctCount = 0;
   state.locked = false;
@@ -464,6 +464,20 @@ function seededShuffle(arr, seedStr) {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
+}
+
+// Greedily picks `n` questions from an already-shuffled pool, skipping ahead
+// whenever the next candidate would repeat the previous question's type.
+function pickRoundAvoidingRepeatTypes(shuffledBank, n) {
+  const pool = shuffledBank.slice();
+  const picked = [];
+  while (picked.length < n && pool.length > 0) {
+    const lastType = picked.length ? picked[picked.length - 1].type : null;
+    let idx = pool.findIndex(q => q.type !== lastType);
+    if (idx === -1) idx = 0; // every remaining question repeats -- no choice left
+    picked.push(pool.splice(idx, 1)[0]);
+  }
+  return picked;
 }
 
 function renderMatch(stage, q) {
