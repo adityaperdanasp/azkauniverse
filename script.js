@@ -26,6 +26,8 @@
    ================================================================= */
 const CHILD_NAME = "Azka";
 
+// Index here MUST line up with audio/correct-01.mp3.. correct-20.mp3 --
+// each phrase's array position (1-based) is its recorded filename number.
 const PRAISE_CORRECT = [
   `Awesome, ${CHILD_NAME}! You got it!`,
   `Brilliant work, ${CHILD_NAME}!`,
@@ -38,9 +40,18 @@ const PRAISE_CORRECT = [
   `Fantastic, ${CHILD_NAME}! Well done!`,
   `You rock, ${CHILD_NAME}!`,
   `Way to go, ${CHILD_NAME}! That's right!`,
-  `${CHILD_NAME}, you're a quest master!`
+  `${CHILD_NAME}, you're a quest master!`,
+  `Woohoo! ${CHILD_NAME} got it right!`,
+  `Incredible, ${CHILD_NAME}! You're crushing it!`,
+  `${CHILD_NAME}, that's exactly right!`,
+  `Super job, ${CHILD_NAME}! You're a genius!`,
+  `Yay! ${CHILD_NAME} figured it out!`,
+  `${CHILD_NAME}, you're on a roll!`,
+  `Bravo, ${CHILD_NAME}! Spot on!`,
+  `${CHILD_NAME}, you're becoming a real explorer!`
 ];
 
+// Index here MUST line up with audio/wrong-01.mp3.. wrong-20.mp3.
 const PRAISE_WRONG = [
   `Almost there, ${CHILD_NAME}! Try again!`,
   `Good try, ${CHILD_NAME}! You'll get the next one!`,
@@ -53,7 +64,15 @@ const PRAISE_WRONG = [
   `That's okay, ${CHILD_NAME}! Explorers keep trying!`,
   `Not quite, ${CHILD_NAME} -- you'll shine on the next one!`,
   `Nice thinking, ${CHILD_NAME}! Let's try the next question!`,
-  `${CHILD_NAME}, every scientist makes mistakes -- keep exploring!`
+  `${CHILD_NAME}, every scientist makes mistakes -- keep exploring!`,
+  `That's alright, ${CHILD_NAME}! Mistakes help us learn!`,
+  `${CHILD_NAME}, you're doing great -- keep at it!`,
+  `So close, ${CHILD_NAME}! You'll get it next time!`,
+  `It's okay, ${CHILD_NAME}! Every try makes you smarter!`,
+  `${CHILD_NAME}, you're braver for trying!`,
+  `Take your time, ${CHILD_NAME} -- you'll figure it out!`,
+  `${CHILD_NAME}, that was a good guess! Let's try again!`,
+  `Keep exploring, ${CHILD_NAME}! You're almost there!`
 ];
 
 const BURST_EMOJI = ["✨", "⭐", "🎉", "🌟", "💫"];
@@ -197,14 +216,33 @@ function speak(text) {
   speechSynthesis.speak(utter);
 }
 
+// Plays the pre-recorded ElevenLabs cheer matching this phrase's position
+// in PRAISE_CORRECT/PRAISE_WRONG (audio/correct-01.mp3.. / wrong-01.mp3..).
+// Falls back to the browser's SpeechSynthesis voice if the file is missing
+// or playback is blocked, so a cheer always plays either way.
+function speakCheer(isCorrect, index, phrase) {
+  const prefix = isCorrect ? "correct" : "wrong";
+  const num = String(index + 1).padStart(2, "0");
+  const audio = new Audio(`audio/${prefix}-${num}.mp3`);
+  let fellBack = false;
+  const fallback = () => {
+    if (fellBack) return;
+    fellBack = true;
+    speak(phrase);
+  };
+  audio.addEventListener("error", fallback);
+  audio.play().catch(fallback);
+}
+
 /* =================================================================
    Feedback popup: celebratory (green) or calm (blue), + tiny burst
    ================================================================= */
 function showFeedback(isCorrect, delayMs) {
   const delay = delayMs || QUESTION_DELAY_MS;
   const pool = isCorrect ? PRAISE_CORRECT : PRAISE_WRONG;
-  const phrase = pool[Math.floor(Math.random() * pool.length)];
-  speak(phrase);
+  const phraseIndex = Math.floor(Math.random() * pool.length);
+  const phrase = pool[phraseIndex];
+  speakCheer(isCorrect, phraseIndex, phrase);
 
   const popup = $("feedback-popup");
   popup.className = "feedback-popup " + (isCorrect ? "correct" : "wrong");
