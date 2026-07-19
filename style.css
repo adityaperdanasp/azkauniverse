@@ -387,6 +387,17 @@ button, input {
   font-size: 12px;
 }
 
+/* Rocket that flies along the path between chapters (script.js: flyShipTo) */
+.ship-marker {
+  position: absolute;
+  width: 30px; height: 30px;
+  transform: translate(-50%, -50%) rotate(var(--ship-angle, 0deg));
+  z-index: 3;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 6px rgba(10, 5, 40, 0.35));
+}
+.ship-marker svg { width: 100%; height: 100%; }
+
 .path-node-name { font-weight: 700; font-size: 0.9rem; color: var(--text-on-dark); }
 .path-node.locked .path-node-name { color: var(--locked-color); }
 .path-node-stars { font-size: 0.8rem; letter-spacing: 2px; color: var(--star-filled); }

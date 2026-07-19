@@ -385,8 +385,8 @@ function renderQuestPathMap(container) {
   PATH_SEGMENTS.forEach((d, i) => {
     const lit = unlockedFlags[i + 1];
     segMarkup += lit
-      ? `<path d="${d}" fill="none" stroke="url(#pathLit)" stroke-width="4" stroke-linecap="round" filter="url(#pathGlow)"/>`
-      : `<path d="${d}" fill="none" stroke="var(--locked-color)" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 12"/>`;
+      ? `<path id="pathSeg${i}" d="${d}" fill="none" stroke="url(#pathLit)" stroke-width="4" stroke-linecap="round" filter="url(#pathGlow)"/>`
+      : `<path id="pathSeg${i}" d="${d}" fill="none" stroke="var(--locked-color)" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 12"/>`;
   });
 
   container.insertAdjacentHTML("beforeend", `
@@ -404,6 +404,15 @@ function renderQuestPathMap(container) {
       </defs>
       ${segMarkup}
     </svg>
+    <div class="ship-marker" id="ship-marker">
+      <svg viewBox="0 0 40 40">
+        <path d="M20 4 L27 26 L20 21 L13 26 Z" fill="#f4f6ff" stroke="#1266d8" stroke-width="1.5" stroke-linejoin="round"/>
+        <circle cx="20" cy="15" r="3" fill="#1266d8"/>
+        <path d="M13 22 L6 31 L13 27 Z" fill="#ff5d8f"/>
+        <path d="M27 22 L34 31 L27 27 Z" fill="#ff5d8f"/>
+        <path d="M17 25 L20 36 L23 25 Z" fill="#ffd93d"/>
+      </svg>
+    </div>
   `);
 
   levels.forEach((level, i) => {
@@ -434,11 +443,123 @@ function renderQuestPathMap(container) {
       <span class="path-node-stars">${starsMarkup(stars)}</span>
       <span class="path-node-meta">${meta}</span>
     `;
-    if (unlocked) btn.addEventListener("click", () => startLevel(level.id, "solo"));
+    if (unlocked) {
+      btn.addEventListener("click", () => {
+        if (shipFlying) return; // ignore taps while a flight is already in progress
+        flyShipTo(i, () => startLevel(level.id, "solo"));
+      });
+    }
     container.appendChild(btn);
   });
 
   buildPathStarfield($("path-field"));
+
+  if (shipNodeIndex === null) shipNodeIndex = defaultShipIndex(unlockedFlags);
+  placeShipAt(shipNodeIndex);
+}
+
+/* =================================================================
+   6d. SHIP FLIGHT — animates a rocket along the path when a chapter
+   is tapped, taking 3s per hop between adjacent chapters, swerving
+   around any planet it passes but doesn't stop at.
+   ================================================================= */
+let shipNodeIndex = null; // which chapter the ship is currently parked at
+let shipFlying = false;
+const SHIP_HOP_MS = 3000;
+const SHIP_AVOID_RADIUS = 60; // viewBox units -- keeps clear of passed-through planets
+
+// Lands the ship on the first unlocked-but-not-completed chapter (or the
+// last chapter if everything is done) the first time the map is opened.
+function defaultShipIndex(unlockedFlags) {
+  for (let i = 0; i < unlockedFlags.length; i++) {
+    const lp = progress.levels[questionsData.levels[i].id];
+    if (unlockedFlags[i] && !(lp && lp.completed)) return i;
+  }
+  return unlockedFlags.length - 1;
+}
+
+function placeShipAt(nodeIndex) {
+  const ship = $("ship-marker");
+  const pos = PATH_NODE_POS[nodeIndex];
+  if (!ship || !pos) return;
+  ship.style.left = pos.x + "%";
+  ship.style.top = pos.y + "px";
+}
+
+// Samples a point at fraction `t` (0..1) along segment `index`, in that
+// segment's natural start-to-end direction (node i -> node i+1).
+function pointOnPathSeg(index, t) {
+  const el = $("pathSeg" + index);
+  if (!el) return { x: 0, y: 0 };
+  const len = el.getTotalLength();
+  const p = el.getPointAtLength(len * Math.max(0, Math.min(1, t)));
+  return { x: p.x, y: p.y };
+}
+
+function flyShipTo(targetIndex, onComplete) {
+  if (shipNodeIndex === null) shipNodeIndex = targetIndex;
+  if (targetIndex === shipNodeIndex) {
+    onComplete();
+    return;
+  }
+  shipFlying = true;
+
+  const from = shipNodeIndex;
+  const dir = targetIndex > from ? 1 : -1;
+  const hops = [];
+  for (let n = from; n !== targetIndex; n += dir) {
+    hops.push({ segIndex: dir === 1 ? n : n - 1, reversed: dir === -1 });
+  }
+
+  // Chapters the ship flies past without stopping -- keep clear of them.
+  const passThrough = [];
+  for (let n = Math.min(from, targetIndex) + 1; n < Math.max(from, targetIndex); n++) passThrough.push(n);
+
+  const ship = $("ship-marker");
+
+  function runHop(hopIdx) {
+    if (hopIdx >= hops.length) {
+      shipNodeIndex = targetIndex;
+      shipFlying = false;
+      // Guard against a stray navigation if Azka left the map mid-flight
+      // (e.g. tapped Home) -- state is still cleaned up either way.
+      if ($("screen-solo-map").classList.contains("active")) onComplete();
+      return;
+    }
+    const { segIndex, reversed } = hops[hopIdx];
+    const startTime = performance.now();
+
+    function frame(now) {
+      const t = Math.min(1, (now - startTime) / SHIP_HOP_MS);
+      const segT = reversed ? 1 - t : t;
+      let { x, y } = pointOnPathSeg(segIndex, segT);
+
+      passThrough.forEach(n => {
+        const pos = PATH_NODE_POS[n];
+        const nx = (pos.x / 100) * 400, ny = pos.y;
+        const dx = x - nx, dy = y - ny;
+        const dist = Math.hypot(dx, dy);
+        if (dist < SHIP_AVOID_RADIUS && dist > 0.001) {
+          const scale = SHIP_AVOID_RADIUS / dist;
+          x = nx + dx * scale;
+          y = ny + dy * scale;
+        }
+      });
+
+      const aheadT = reversed ? segT - 0.02 : segT + 0.02;
+      const ahead = pointOnPathSeg(segIndex, aheadT);
+      const angle = Math.atan2(ahead.y - y, ahead.x - x) * (180 / Math.PI);
+      ship.style.setProperty("--ship-angle", (angle + 90) + "deg");
+      ship.style.left = (x / 400 * 100) + "%";
+      ship.style.top = y + "px";
+
+      if (t < 1) requestAnimationFrame(frame);
+      else runHop(hopIdx + 1);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  runHop(0);
 }
 
 // Layered parallax starfield behind the path map -- generated once from
