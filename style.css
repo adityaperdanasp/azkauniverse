@@ -274,6 +274,32 @@ button, input {
   color: #fff;
 }
 
+/* Small pill toggle for the theme switch (Settings) -- compact, not
+   stretched full-width like the segmented controls elsewhere. */
+.theme-pill {
+  display: inline-flex;
+  gap: 4px;
+  background: var(--gentle-bg);
+  border-radius: 999px;
+  padding: 4px;
+}
+.theme-pill-btn {
+  border: none;
+  background: transparent;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--text-muted-on-surface, #8a84ad);
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.theme-pill-btn.active {
+  background: var(--primary);
+  color: var(--text-on-light);
+  box-shadow: 0 0 0 3px var(--accent-yellow);
+}
+
 /* =================================================================
    6. QUEST MAP
    ================================================================= */

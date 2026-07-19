@@ -95,7 +95,7 @@ function saveTheme(theme) {
 }
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
-  document.querySelectorAll("#theme-seg .seg-btn").forEach(b => {
+  document.querySelectorAll("#theme-seg .theme-pill-btn").forEach(b => {
     b.classList.toggle("active", b.dataset.theme === theme);
   });
 }
@@ -1208,7 +1208,7 @@ function showMpGameOver() {
 $("btn-mode-solo").addEventListener("click", openSoloMap);
 $("btn-mode-multiplayer").addEventListener("click", openMultiplayerLanding);
 
-document.querySelectorAll("#theme-seg .seg-btn").forEach(btn => {
+document.querySelectorAll("#theme-seg .theme-pill-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     applyTheme(btn.dataset.theme);
     saveTheme(btn.dataset.theme);
