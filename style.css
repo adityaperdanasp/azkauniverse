@@ -101,10 +101,25 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   transition: background 0.4s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button, input {
   font-family: inherit;
+}
+
+/* iOS Safari's default tap-highlight is an opaque grey rectangle. Most
+   buttons in the app have an opaque background that hides it, but the
+   quest path's transparent-background nodes made it show up as a stark
+   grey box on every tap -- kill it everywhere and rely on our own
+   :active states for tap feedback instead. */
+button {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+button:focus-visible {
+  outline: 2px solid var(--secondary);
+  outline-offset: 2px;
 }
 
 .hidden { display: none !important; }
@@ -382,8 +397,11 @@ button, input {
   cursor: pointer;
   font-family: inherit;
   color: inherit;
+  transition: transform 0.12s ease;
 }
 .path-node:disabled { cursor: not-allowed; }
+.path-node:not(:disabled):active { transform: translate(-50%, -50%) scale(0.94); }
+.path-node:not(:disabled):active .path-planet svg { filter: brightness(1.15); }
 .path-node.side-left { align-items: flex-end; text-align: right; }
 .path-node.side-right { align-items: flex-start; text-align: left; }
 
